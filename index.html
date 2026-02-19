@@ -9,12 +9,14 @@
 <style>
 
 body {
-    background: radial-gradient(circle at center, #02040a 0%, #000000 80%);
+    background: radial-gradient(circle at center, #01040a 0%, #000000 100%);
     color: #7df9ff;
     font-family: Arial, sans-serif;
     text-align: center;
     padding: 40px 20px;
 }
+
+/* Title */
 
 h1 {
     font-size: 42px;
@@ -25,22 +27,26 @@ h1 {
         0 0 40px #00f0ff;
 }
 
-/* ASCII Mandala */
+/* Mandala */
+
 .mandala {
     font-family: "Courier New", monospace;
-    font-size: 14px;
+    font-size: 15px;
     white-space: pre;
     color: #7df9ff;
     margin: 30px auto;
-    text-shadow: 0 0 8px #00f0ff;
+    text-shadow:
+        0 0 8px #00f0ff,
+        0 0 18px #00f0ff;
 }
 
 /* Buttons */
+
 .button {
     display: block;
-    margin: 20px auto;
+    margin: 25px auto;
     padding: 18px 28px;
-    width: 320px;
+    width: 340px;
     border-radius: 14px;
     font-size: 16px;
     text-decoration: none;
@@ -53,7 +59,7 @@ h1 {
     color: black;
     box-shadow:
         0 0 10px #00f0ff,
-        0 0 20px #00f0ff;
+        0 0 25px #00f0ff;
 }
 
 .download:hover {
@@ -72,6 +78,8 @@ h1 {
     background: rgba(0,240,255,0.1);
 }
 
+/* Footer */
+
 .footer {
     margin-top: 40px;
     font-size: 14px;
@@ -85,29 +93,41 @@ h1 {
 
 <h1>Quantum Field Walker</h1>
 
-<div class="mandala">
-        ╭─────────────╮
-     ╭──┤      ✦      ├──╮
-   ╭─┤   ╲    │    ╱   ├─╮
-  │  │     ╲  │  ╱     │  │
-  │  │  ────  ✚  ────  │  │
-  │  │     ╱  │  ╲     │  │
-   ╰─┤   ╱    │    ╲   ├─╯
-     ╰──┤      ✦      ├──╯
-        ╰─────────────╯
-</div>
+<!-- DOWNLOAD BUTTON -->
 
 <a href="Quantum Field Walker Book.pdf"
    class="button download"
-   download>
-CLICK TO DOWNLOAD — COPYRIGHTED BUT FREE TO READ
+   download="Quantum Field Walker Book.pdf">
+DOWNLOAD BOOK — COPYRIGHTED BUT FREE TO READ
 </a>
+
+<!-- MANDALA WITH CROSS -->
+
+<div class="mandala">
+
+          ✦
+     ╭───────────╮
+   ╭─┤     │     ├─╮
+  │  │  ╲  │  ╱  │  │
+  │  │   ╲ │ ╱   │  │
+  │  │ ─── ✚ ─── │  │
+  │  │   ╱ │ ╲   │  │
+  │  │  ╱  │  ╲  │  │
+   ╰─┤     │     ├─╯
+     ╰───────────╯
+          ✦
+
+</div>
+
+<!-- READ BUTTON -->
 
 <a href="Quantum Field Walker Book.pdf"
    class="button read"
    target="_blank">
-OPEN BOOK IN BROWSER — READ ONLY MODE
+READ BOOK IN BROWSER — COPYRIGHTED BUT FREE TO READ
 </a>
+
+<!-- COPYRIGHT -->
 
 <div class="footer">
 This book is copyrighted and protected.<br>
