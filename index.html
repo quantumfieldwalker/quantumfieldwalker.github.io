@@ -2,13 +2,13 @@
 <html>
 <head>
 <title>Quantum Field Walker</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: radial-gradient(circle at center, #0a0f20, #000000);
+    background: radial-gradient(circle at center, #0a0f20, #000814);
     color: #e0e6ff;
     text-align: center;
 }
@@ -18,38 +18,38 @@ body {
 }
 
 h1 {
-    font-size: 36px;
+    font-size: 38px;
     letter-spacing: 3px;
     text-shadow: 0 0 20px #4da3ff;
 }
 
-p {
+.subtitle {
+    margin-top: 10px;
     opacity: 0.8;
-    margin-bottom: 30px;
 }
 
 .button {
     display: inline-block;
-    padding: 15px 30px;
+    margin-top: 40px;
+    padding: 18px 36px;
     font-size: 18px;
     color: white;
+    background: linear-gradient(90deg, #1e90ff, #00c6ff);
+    border-radius: 10px;
     text-decoration: none;
-    border: 1px solid #4da3ff;
-    border-radius: 8px;
-    box-shadow: 0 0 15px #4da3ff;
+    box-shadow: 0 0 20px rgba(0,198,255,0.6);
 }
 
 .button:hover {
-    background-color: #4da3ff;
-    color: black;
+    box-shadow: 0 0 30px rgba(0,198,255,1);
 }
 
-.footer {
+.copyright {
     position: fixed;
-    bottom: 10px;
+    bottom: 20px;
     width: 100%;
-    font-size: 12px;
-    opacity: 0.6;
+    font-size: 14px;
+    opacity: 0.7;
 }
 </style>
 
@@ -61,17 +61,24 @@ p {
 
 <h1>Quantum Field Walker</h1>
 
-<p>Official Book Portal</p>
+<div class="subtitle">
+Official Book Portal
+</div>
 
-<a class="button" href="Quantum Field Walker Book.docx">
-Download Book
+<a class="button" href="Quantum Field Walker Book.docx" download>
+⬇ Enter the Field — Free Download
 </a>
+
+<div class="subtitle" style="margin-top:20px;">
+Free to download. Protected by copyright.
+</div>
 
 </div>
 
-<div class="footer">
+<div class="copyright">
 Copyright © 2026 Quantum Field Walker<br>
-All rights reserved.
+All rights reserved.<br>
+This work may not be copied, reproduced, or redistributed without permission.
 </div>
 
 </body>
