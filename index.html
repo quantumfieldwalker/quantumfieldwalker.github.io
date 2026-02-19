@@ -1,130 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Quantum Field Walker</title>
-
 <style>
-body {
-    margin: 0;
+  :root{
+    --neon:#7df9ff;
+    --neon-dim:#66d9ff;
+    --bg1:#02131c;
+    --bg2:#000000;
+  }
+  html,body{height:100%;margin:0;}
+  body{
     font-family: Arial, sans-serif;
-    background: radial-gradient(circle at center, #02131c 0%, #000000 70%);
-    color: #7df9ff;
-    text-align: center;
-}
-
-.container {
-    padding: 50px 20px;
-}
-
-.title {
-    font-size: 42px;
-    margin-bottom: 10px;
-    letter-spacing: 2px;
+    background: radial-gradient(circle at center, var(--bg1) 0%, var(--bg2) 70%);
+    color: var(--neon);
+    text-align:center;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+  .container{padding:56px 20px; max-width:720px; margin:0 auto;}
+  .title{
+    font-size:44px;
+    margin:0 0 6px;
+    letter-spacing:2px;
     text-shadow:
-        0 0 10px #00f0ff,
-        0 0 20px #00f0ff,
-        0 0 40px #00f0ff;
-}
-
-.subtitle {
-    color: #66d9ff;
-    margin-bottom: 10px;
-    font-size: 16px;
-    opacity: 0.8;
-}
-
-/* keep mandala styling as in your file */
-.mandala-box {
-    white-space: pre;
-    font-family: monospace;
-    font-size: 14px;
-    line-height: 16px;
-    display: inline-block;
-    margin: 30px auto;
-    padding: 20px;
-    color: #7df9ff;
-    text-shadow:
-        0 0 10px #00f0ff,
-        0 0 20px #00f0ff;
-    animation: pulse 4s infinite ease-in-out;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); opacity: 0.85; }
-    50% { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(1); opacity: 0.85; }
-}
-
-/* button kept in case you use it */
-.button {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 20px 40px;
-    font-size: 18px;
-    color: black;
-    background: linear-gradient(90deg, #00f0ff, #7df9ff);
-    border-radius: 14px;
-    text-decoration: none;
-    box-shadow:
-        0 0 15px #00f0ff,
-        0 0 30px #00f0ff;
-    transition: 0.3s;
-}
-
-.button:hover {
-    transform: scale(1.05);
-    box-shadow:
-        0 0 30px #00f0ff,
-        0 0 60px #00f0ff;
-}
-
-.footer {
-    margin-top: 60px;
-    font-size: 14px;
-    color: #66d9ff;
-    opacity: 0.7;
-}
-
-/* ensure links inherit color and do not break layout */
-a.plain-link {
-    color: inherit;
-    text-decoration: none;
-    word-break: break-all;
-}
+      0 0 10px #00f0ff,
+      0 0 20px #00f0ff,
+      0 0 40px #00f0ff;
+  }
+  .subtitle{
+    color:var(--neon-dim);
+    margin:6px 0 14px;
+    font-size:15px;
+    opacity:0.9;
+  }
+  .youtube-link{
+    color:var(--neon-dim);
+    margin-bottom:22px;
+    display:block;
+    text-decoration:none;
+    word-break:break-all;
+    font-size:15px;
+  }
+  .mandala-box{
+    white-space:pre;
+    font-family:monospace;
+    font-size:14px;
+    line-height:16px;
+    display:inline-block;
+    margin:28px auto;
+    padding:18px;
+    color:var(--neon);
+    text-shadow:0 0 10px #00f0ff,0 0 20px #00f0ff;
+    animation:pulse 4s infinite ease-in-out;
+    border-radius:8px;
+  }
+  @keyframes pulse{
+    0%{transform:scale(1);opacity:0.9}
+    50%{transform:scale(1.03);opacity:1}
+    100%{transform:scale(1);opacity:0.9}
+  }
+  .enter-btn{
+    display:inline-block;
+    margin-top:22px;
+    padding:18px 36px;
+    font-size:18px;
+    color:black;
+    background:linear-gradient(90deg,#00f0ff,#7df9ff);
+    border-radius:14px;
+    text-decoration:none;
+    box-shadow:0 0 15px #00f0ff,0 0 30px #00f0ff;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .enter-btn:hover{transform:scale(1.04); box-shadow:0 0 30px #00f0ff,0 0 60px #00f0ff;}
+  .footer{
+    margin-top:46px;
+    font-size:13px;
+    color:var(--neon-dim);
+    opacity:0.85;
+  }
+  /* ensure links look like plain text but are clickable */
+  a.plain { color: inherit; text-decoration: none; }
 </style>
-
 </head>
-
 <body>
-
-<div class="container">
-
+  <div class="container">
     <div class="title">Quantum Field Walker</div>
 
     <div class="subtitle">A copyrighted work • Free to read</div>
 
-    <!-- Clickable YouTube link placed exactly as in your file -->
-    <div style="margin-bottom:20px;">
-        <a class="plain-link" href="https://youtube.com/@QuantumFieldWalker" target="_blank" rel="noopener noreferrer">
-            https://youtube.com/@QuantumFieldWalker
-        </a>
-    </div>
+    <!-- Plain-looking clickable YouTube link (keeps the dark look) -->
+    <a class="youtube-link plain" href="https://youtube.com/@QuantumFieldWalker" target="_blank" rel="noopener noreferrer">
+      https://youtube.com/@QuantumFieldWalker
+    </a>
 
+    <!-- Mandala placeholder — replace with your actual ASCII/art -->
     <div class="mandala-box">
 ( your mandala art )
     </div>
 
-    <a class="button" href="read.html">ENTER AND READ</a>
-
-    <div class="footer">
-        This work is protected. Reading is permitted. Redistribution is not. © 2026 Quantum Field Walker
+    <!-- Button opens the PDF (replace filename/path if needed) -->
+    <div>
+      <a class="enter-btn" href="Quantum Field Walker Book.pdf" target="_blank" rel="noopener noreferrer">
+        ENTER AND READ
+      </a>
     </div>
 
-</div>
-
+    <div class="footer">
+      This work is protected. Reading is permitted. Redistribution is not. © 2026 Quantum Field Walker
+    </div>
+  </div>
 </body>
 </html>
