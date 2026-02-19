@@ -81,7 +81,6 @@
     color:var(--neon-dim);
     opacity:0.85;
   }
-  /* ensure links look like plain text but are clickable */
   a.plain { color: inherit; text-decoration: none; }
 </style>
 </head>
@@ -91,20 +90,29 @@
 
     <div class="subtitle">A copyrighted work • Free to read</div>
 
-    <!-- Plain-looking clickable YouTube link (keeps the dark look) -->
+    <!-- Clickable YouTube link (plain-looking) -->
     <a class="youtube-link plain" href="https://youtube.com/@QuantumFieldWalker" target="_blank" rel="noopener noreferrer">
       https://youtube.com/@QuantumFieldWalker
     </a>
 
-    <!-- Mandala placeholder — replace with your actual ASCII/art -->
+    <!-- Mandala placeholder - paste your ASCII/art here -->
     <div class="mandala-box">
 ( your mandala art )
     </div>
 
-    <!-- Button opens the PDF (replace filename/path if needed) -->
+    <!-- Primary ENTER AND READ button: encoded filename for spaces -->
     <div>
-      <a class="enter-btn" href="Quantum Field Walker Book.pdf" target="_blank" rel="noopener noreferrer">
+      <a class="enter-btn"
+         href="https://quantumfieldwalker.github.io/Quantum%20Field%20Walker%20Book.pdf"
+         target="_blank" rel="noopener noreferrer">
         ENTER AND READ
+      </a>
+    </div>
+
+    <!-- Alternative link (simpler filename) in case you rename the file on GitHub -->
+    <div style="margin-top:10px;">
+      <a class="plain" href="https://quantumfieldwalker.github.io/quantum-field-walker-book.pdf" target="_blank" rel="noopener noreferrer" style="color:var(--neon-dim); font-size:13px;">
+        fallback: quantum-field-walker-book.pdf
       </a>
     </div>
 
