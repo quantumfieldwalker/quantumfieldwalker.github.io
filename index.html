@@ -9,131 +9,88 @@
 <style>
 
 body {
-    background: radial-gradient(circle at center, #01040a 0%, #000000 100%);
-    color: #7df9ff;
+    margin: 0;
     font-family: Arial, sans-serif;
+    background: radial-gradient(circle at center, #020b12 0%, #000000 100%);
+    color: #7df9ff;
     text-align: center;
+}
+
+.container {
     padding: 40px 20px;
 }
 
-/* Title */
-
-h1 {
+.title {
     font-size: 42px;
     margin-bottom: 30px;
-    text-shadow:
-        0 0 10px #00f0ff,
-        0 0 20px #00f0ff,
-        0 0 40px #00f0ff;
+    text-shadow: 0 0 20px #00f0ff;
 }
-
-/* Mandala */
 
 .mandala {
-    font-family: "Courier New", monospace;
-    font-size: 15px;
-    white-space: pre;
-    color: #7df9ff;
+    width: 260px;
     margin: 30px auto;
-    text-shadow:
-        0 0 8px #00f0ff,
-        0 0 18px #00f0ff;
+    filter: drop-shadow(0 0 20px #00f0ff);
 }
-
-/* Buttons */
 
 .button {
-    display: block;
-    margin: 25px auto;
-    padding: 18px 28px;
-    width: 340px;
-    border-radius: 14px;
-    font-size: 16px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.download {
-    background: linear-gradient(90deg, #63f5ff, #4fd0d9);
+    display: inline-block;
+    margin: 15px;
+    padding: 18px 30px;
+    font-size: 18px;
     color: black;
-    box-shadow:
-        0 0 10px #00f0ff,
-        0 0 25px #00f0ff;
+    background: linear-gradient(90deg, #00f0ff, #7df9ff);
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 0 20px #00f0ff;
 }
 
-.download:hover {
-    transform: scale(1.05);
-}
-
-.read {
-    border: 2px solid #00f0ff;
+.button.secondary {
+    background: transparent;
     color: #7df9ff;
-    box-shadow:
-        0 0 10px #00f0ff inset,
-        0 0 20px #00f0ff;
+    border: 2px solid #00f0ff;
 }
 
-.read:hover {
-    background: rgba(0,240,255,0.1);
+.button:hover {
+    box-shadow: 0 0 40px #00f0ff;
 }
-
-/* Footer */
 
 .footer {
     margin-top: 40px;
     font-size: 14px;
-    color: #7df9ff;
+    color: #66d9ff;
 }
 
 </style>
 
 </head>
+
 <body>
 
-<h1>Quantum Field Walker</h1>
+<div class="container">
 
-<!-- DOWNLOAD BUTTON -->
-
-<a href="Quantum Field Walker Book.pdf"
-   class="button download"
-   download="Quantum Field Walker Book.pdf">
-DOWNLOAD BOOK — COPYRIGHTED BUT FREE TO READ
-</a>
-
-<!-- MANDALA WITH CROSS -->
-
-<div class="mandala">
-
-          ✦
-     ╭───────────╮
-   ╭─┤     │     ├─╮
-  │  │  ╲  │  ╱  │  │
-  │  │   ╲ │ ╱   │  │
-  │  │ ─── ✚ ─── │  │
-  │  │   ╱ │ ╲   │  │
-  │  │  ╱  │  ╲  │  │
-   ╰─┤     │     ├─╯
-     ╰───────────╯
-          ✦
-
+<div class="title">
+Quantum Field Walker
 </div>
 
-<!-- READ BUTTON -->
-
-<a href="Quantum Field Walker Book.pdf"
-   class="button read"
-   target="_blank">
-READ BOOK IN BROWSER — COPYRIGHTED BUT FREE TO READ
+<!-- Download Button -->
+<a href="quantum-field-walker-book.pdf" download class="button">
+COPYRIGHTED BUT FREE TO READ — DOWNLOAD
 </a>
 
-<!-- COPYRIGHT -->
+<!-- Mandala Image -->
+<img src="mandala.png" class="mandala">
+
+<!-- Read Button -->
+<a href="quantum-field-walker-book.pdf" target="_blank" class="button secondary">
+COPYRIGHTED BUT FREE TO READ — OPEN IN BROWSER
+</a>
 
 <div class="footer">
 This book is copyrighted and protected.<br>
-Free to read. Copying, redistribution, or reproduction is prohibited.<br><br>
-Copyright © 2026 Quantum Field Walker<br>
-All Rights Reserved
+Free to read. Redistribution prohibited.<br><br>
+Copyright © 2026 Quantum Field Walker
+</div>
+
 </div>
 
 </body>
