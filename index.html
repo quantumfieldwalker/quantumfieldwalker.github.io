@@ -4,54 +4,82 @@
 <title>Quantum Field Walker</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: radial-gradient(circle at center, #0a0f20, #000814);
-    color: #e0e6ff;
+    font-family: Orbitron, Arial, sans-serif;
+    background: radial-gradient(circle at center, #02030a, #000000);
+    color: #7df9ff;
     text-align: center;
 }
 
 .container {
-    margin-top: 20vh;
+    margin-top: 10vh;
+    padding: 20px;
 }
 
 h1 {
-    font-size: 38px;
-    letter-spacing: 3px;
-    text-shadow: 0 0 20px #4da3ff;
+    font-size: 40px;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px #00f0ff;
 }
 
-.subtitle {
-    margin-top: 10px;
-    opacity: 0.8;
+img {
+    width: 220px;
+    margin-top: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 30px #00f0ff;
 }
 
 .button {
     display: inline-block;
     margin-top: 40px;
-    padding: 18px 36px;
-    font-size: 18px;
-    color: white;
-    background: linear-gradient(90deg, #1e90ff, #00c6ff);
-    border-radius: 10px;
+    padding: 18px 28px;
+    font-size: 16px;
+    color: #000;
+    background: #00f0ff;
+    border-radius: 12px;
     text-decoration: none;
-    box-shadow: 0 0 20px rgba(0,198,255,0.6);
+    box-shadow: 0 0 25px #00f0ff;
 }
 
 .button:hover {
-    box-shadow: 0 0 30px rgba(0,198,255,1);
+    background: #7df9ff;
+}
+
+.readbutton {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 14px 24px;
+    font-size: 14px;
+    color: #00f0ff;
+    border: 1px solid #00f0ff;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.notice {
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0.8;
 }
 
 .copyright {
-    position: fixed;
-    bottom: 20px;
-    width: 100%;
-    font-size: 14px;
-    opacity: 0.7;
+    margin-top: 40px;
+    font-size: 13px;
+    opacity: 0.6;
 }
+
 </style>
+
+<script>
+document.addEventListener("contextmenu", event => event.preventDefault());
+document.addEventListener("copy", event => event.preventDefault());
+document.addEventListener("selectstart", event => event.preventDefault());
+</script>
 
 </head>
 
@@ -61,24 +89,30 @@ h1 {
 
 <h1>Quantum Field Walker</h1>
 
-<div class="subtitle">
-Official Book Portal
-</div>
+<img src="cover.jpg">
+
+<br>
 
 <a class="button" href="Quantum Field Walker Book.docx" download>
-⬇ Enter the Field — Free Download
+CLICK TO DOWNLOAD — COPYRIGHTED BUT FREE TO READ
 </a>
 
-<div class="subtitle" style="margin-top:20px;">
-Free to download. Protected by copyright.
-</div>
+<br>
 
+<a class="readbutton" href="Quantum Field Walker Book.docx">
+OPEN BOOK IN BROWSER — READ ONLY MODE
+</a>
+
+<div class="notice">
+This book is copyrighted and protected.<br>
+Free to read. Copying, redistribution, or reproduction is prohibited.
 </div>
 
 <div class="copyright">
 Copyright © 2026 Quantum Field Walker<br>
-All rights reserved.<br>
-This work may not be copied, reproduced, or redistributed without permission.
+All Rights Reserved
+</div>
+
 </div>
 
 </body>
