@@ -11,53 +11,75 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: radial-gradient(circle at center, #020b12 0%, #000000 100%);
+    background: radial-gradient(circle at center, #02131c 0%, #000000 70%);
     color: #7df9ff;
     text-align: center;
+    overflow-x: hidden;
 }
 
 .container {
-    padding: 40px 20px;
+    padding: 50px 20px;
 }
 
 .title {
-    font-size: 42px;
+    font-size: 46px;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-shadow:
+        0 0 10px #00f0ff,
+        0 0 20px #00f0ff,
+        0 0 40px #00f0ff;
+}
+
+.subtitle {
+    color: #66d9ff;
     margin-bottom: 30px;
-    text-shadow: 0 0 20px #00f0ff;
+    font-size: 16px;
+    opacity: 0.8;
 }
 
 .mandala {
     width: 260px;
-    margin: 30px auto;
-    filter: drop-shadow(0 0 20px #00f0ff);
+    margin: 40px auto;
+    filter:
+        drop-shadow(0 0 10px #00f0ff)
+        drop-shadow(0 0 25px #00f0ff);
+    animation: pulse 4s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.85; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.85; }
 }
 
 .button {
     display: inline-block;
-    margin: 15px;
-    padding: 18px 30px;
+    margin-top: 30px;
+    padding: 20px 40px;
     font-size: 18px;
     color: black;
     background: linear-gradient(90deg, #00f0ff, #7df9ff);
-    border-radius: 12px;
+    border-radius: 14px;
     text-decoration: none;
-    box-shadow: 0 0 20px #00f0ff;
-}
-
-.button.secondary {
-    background: transparent;
-    color: #7df9ff;
-    border: 2px solid #00f0ff;
+    box-shadow:
+        0 0 15px #00f0ff,
+        0 0 30px #00f0ff;
+    transition: 0.3s;
 }
 
 .button:hover {
-    box-shadow: 0 0 40px #00f0ff;
+    transform: scale(1.05);
+    box-shadow:
+        0 0 30px #00f0ff,
+        0 0 60px #00f0ff;
 }
 
 .footer {
-    margin-top: 40px;
+    margin-top: 60px;
     font-size: 14px;
     color: #66d9ff;
+    opacity: 0.7;
 }
 
 </style>
@@ -72,23 +94,20 @@ body {
 Quantum Field Walker
 </div>
 
-<!-- Download Button -->
-<a href="quantum-field-walker-book.pdf" download class="button">
-COPYRIGHTED BUT FREE TO READ — DOWNLOAD
-</a>
+<div class="subtitle">
+A copyrighted work • Free to read
+</div>
 
-<!-- Mandala Image -->
 <img src="mandala.png" class="mandala">
 
-<!-- Read Button -->
-<a href="quantum-field-walker-book.pdf" target="_blank" class="button secondary">
-COPYRIGHTED BUT FREE TO READ — OPEN IN BROWSER
+<a href="quantum-field-walker-book.pdf" target="_blank" class="button">
+ENTER AND READ
 </a>
 
 <div class="footer">
-This book is copyrighted and protected.<br>
-Free to read. Redistribution prohibited.<br><br>
-Copyright © 2026 Quantum Field Walker
+This work is protected.<br>
+Reading is permitted. Redistribution is not.<br><br>
+© 2026 Quantum Field Walker
 </div>
 
 </div>
