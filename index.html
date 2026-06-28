@@ -4,18 +4,26 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Quantum Field Walker</title>
+<meta name="description" content="A Christ-centered field guide to wellness, sacred language, and the seven lanterns — where science, spirit, and beauty walk as one."/>
+<meta property="og:title" content="Quantum Field Walker"/>
+<meta property="og:description" content="Wellness · sacred geometry · the seven lanterns of Leafshire."/>
+<meta property="og:type" content="website"/>
+<!-- SVG favicon (Chrome, Firefox, Edge, Android) -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><polygon points='16,4 26,12 26,24 16,30 6,24 6,12' fill='none' stroke='%23c9a84c' stroke-width='2'/><circle cx='16' cy='17' r='3' fill='%23ffd700'/></svg>"/>
+<!-- Optional: upload a 180x180 PNG named lantern-icon.png for iPhone home-screen icon -->
+<link rel="apple-touch-icon" href="lantern-icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     background: #050d0f;
     color: #d9efe8;
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
     min-height: 100vh;
     overflow-x: hidden;
     text-align: center;
+    -webkit-font-smoothing: antialiased;
   }
   .stars { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
   .stars span {
@@ -24,7 +32,6 @@
     animation-delay: var(--dl, 0s);
   }
   @keyframes twinkle { from { opacity: 0.1; } to { opacity: 0.8; } }
-  /* Rainbow Flower of Life behind the title */
   .fol {
     position: fixed; top: -70px; left: 50%; transform: translateX(-50%);
     width: 560px; max-width: 120vw; opacity: 0.13; z-index: 1; pointer-events: none;
@@ -38,23 +45,23 @@
     margin-bottom: 22px; animation: fadeUp 1s 0.2s both ease-out;
   }
   h1 {
-    font-family: 'Cinzel Decorative', serif; font-size: clamp(26px, 7vw, 50px);
+    font-family: 'Cinzel Decorative', Georgia, serif; font-size: clamp(30px, 8vw, 54px);
     font-weight: 700; color: #c9a84c;
     text-shadow: 0 0 20px rgba(201,168,76,0.5), 0 0 50px rgba(201,168,76,0.2);
-    letter-spacing: 3px; line-height: 1.25; margin-bottom: 10px;
+    letter-spacing: 3px; line-height: 1.25; margin-bottom: 12px;
     animation: fadeUp 1s 0.4s both ease-out;
   }
   .tagline {
-    font-style: italic; font-size: 16px; color: #3abfcc; letter-spacing: 2px;
-    margin-bottom: 8px; animation: fadeUp 1s 0.6s both ease-out;
+    font-style: italic; font-size: 20px; color: #3abfcc; letter-spacing: 2px;
+    margin-bottom: 10px; animation: fadeUp 1s 0.6s both ease-out;
   }
   .password {
-    font-size: 13px; color: #8a6f30; letter-spacing: 3px;
-    margin-bottom: 22px; animation: fadeUp 1s 0.8s both ease-out;
+    font-size: 16px; color: #a98a3e; letter-spacing: 2px;
+    margin-bottom: 24px; animation: fadeUp 1s 0.8s both ease-out;
   }
   .intro {
-    font-style: italic; font-size: 16px; color: #b9d8d0; line-height: 1.6;
-    max-width: 460px; margin-bottom: 30px; animation: fadeUp 1s 0.9s both ease-out;
+    font-style: italic; font-size: 19px; color: #c4ddd5; line-height: 1.65;
+    max-width: 480px; margin-bottom: 32px; animation: fadeUp 1s 0.9s both ease-out;
   }
   .divider {
     width: 100px; height: 1px;
@@ -62,7 +69,7 @@
     margin-bottom: 18px; animation: fadeUp 1s 1s both ease-out;
   }
   .scroll-cue {
-    font-size: 18px; color: #8a6f30; margin-bottom: 34px;
+    font-size: 20px; color: #a98a3e; margin-bottom: 34px;
     animation: fadeUp 1s 1.05s both ease-out, bob 2.2s 1.6s infinite ease-in-out;
   }
   @keyframes bob { 0%,100% { transform: translateY(0); opacity:0.5; } 50% { transform: translateY(6px); opacity:1; } }
@@ -83,40 +90,40 @@
     border-color: rgba(58,191,204,0.3); animation-delay: 1.25s;
   }
   .read-btn.lll:hover { border-color: #3abfcc; box-shadow: 0 0 40px rgba(58,191,204,0.18); }
-  .read-btn.lll .btn-eyebrow { color: #2a8f9a; }
-  .read-btn.lll .btn-sub { color: #c9a84c; }
-  .read-btn.lll .btn-badge { color: #2a8f9a; border-color: rgba(58,191,204,0.3); }
+  .read-btn.lll .btn-eyebrow { color: #3aa5b2; }
+  .read-btn.lll .btn-sub { color: #d4b552; }
+  .read-btn.lll .btn-badge { color: #3aa5b2; border-color: rgba(58,191,204,0.3); }
   .read-btn.lll .btn-arrow { color: #3abfcc; }
   .read-btn.shield {
     background: linear-gradient(135deg, rgba(136,102,255,0.08), rgba(221,68,255,0.06));
     border-color: rgba(136,102,255,0.3); animation-delay: 1.4s;
   }
   .read-btn.shield:hover { border-color: #8866ff; box-shadow: 0 0 40px rgba(136,102,255,0.18); }
-  .read-btn.shield .btn-eyebrow { color: #6b54cc; }
+  .read-btn.shield .btn-eyebrow { color: #9d83ff; }
   .read-btn.shield .btn-sub { color: #dd44ff; }
-  .read-btn.shield .btn-badge { color: #6b54cc; border-color: rgba(136,102,255,0.3); }
+  .read-btn.shield .btn-badge { color: #9d83ff; border-color: rgba(136,102,255,0.3); }
   .read-btn.shield .btn-arrow { color: #8866ff; }
   .btn-eyebrow {
-    font-family: 'Cinzel Decorative', serif; font-size: 10px; letter-spacing: 4px;
-    color: #8a6f30; text-transform: uppercase; margin-bottom: 10px;
+    font-family: 'Cinzel Decorative', Georgia, serif; font-size: 12px; letter-spacing: 3px;
+    color: #a98a3e; text-transform: uppercase; margin-bottom: 10px;
   }
-  .btn-title { font-size: 24px; color: #d9efe8; margin-bottom: 8px; font-weight: 400; }
-  .btn-sub { font-style: italic; font-size: 14px; color: #3abfcc; font-weight: 300; margin-bottom: 14px; }
+  .btn-title { font-size: 27px; color: #d9efe8; margin-bottom: 8px; font-weight: 500; }
+  .btn-sub { font-style: italic; font-size: 17px; color: #3abfcc; font-weight: 400; margin-bottom: 14px; }
   .btn-badge {
-    display: inline-block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-    color: #8a6f30; border: 1px solid rgba(138,111,48,0.4);
-    padding: 4px 12px; border-radius: 20px; margin-bottom: 14px;
+    display: inline-block; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: #a98a3e; border: 1px solid rgba(169,138,62,0.5);
+    padding: 5px 13px; border-radius: 20px; margin-bottom: 14px;
   }
-  .btn-arrow { font-size: 22px; color: #c9a84c; display: block; transition: transform 0.3s; }
+  .btn-arrow { font-size: 24px; color: #c9a84c; display: block; transition: transform 0.3s; }
   .read-btn:hover .btn-arrow { transform: translateX(6px); }
   .yt-link {
-    font-size: 13px; letter-spacing: 2px; color: #8a6f30; text-decoration: none;
+    font-size: 16px; letter-spacing: 1.5px; color: #a98a3e; text-decoration: none;
     transition: color 0.3s; animation: fadeUp 1s 1.4s both ease-out; margin-bottom: 50px;
   }
   .yt-link:hover { color: #c9a84c; }
   .lanterns { display: flex; gap: 12px; justify-content: center; margin: 40px 0 10px; animation: fadeUp 1s 1.5s both ease-out; }
   .dot {
-    width: 10px; height: 10px; border-radius: 50%;
+    width: 11px; height: 11px; border-radius: 50%;
     box-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
     animation: pulse 3s infinite alternate ease-in-out; animation-delay: var(--dl, 0s);
   }
@@ -128,15 +135,18 @@
   .l5 { background:#44aaff; color:#44aaff; --dl:1.2s; }
   .l6 { background:#8866ff; color:#8866ff; --dl:1.5s; }
   .l7 { background:#dd44ff; color:#dd44ff; --dl:1.8s; }
-  .lantern-label { font-size: 10px; letter-spacing: 3px; color: #8a6f30; text-transform: uppercase; animation: fadeUp 1s 1.6s both ease-out; margin-bottom: 40px; }
-  .footer { font-size: 11px; letter-spacing: 2px; color: rgba(201,168,76,0.25); text-transform: uppercase; animation: fadeUp 1s 1.8s both ease-out; }
+  .lantern-label { font-size: 12px; letter-spacing: 2.5px; color: #a98a3e; text-transform: uppercase; animation: fadeUp 1s 1.6s both ease-out; margin-bottom: 40px; }
+  .footer { font-size: 13px; letter-spacing: 2px; color: rgba(201,168,76,0.4); text-transform: uppercase; animation: fadeUp 1s 1.8s both ease-out; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  /* Respect users who prefer less motion (accessibility + comfort) */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
 </style>
 </head>
 <body>
 <div class="stars" id="stars"></div>
 
-<!-- Rainbow Flower of Life -->
 <svg class="fol" viewBox="0 0 400 400" aria-hidden="true">
   <defs><linearGradient id="folGrad" x1="0" y1="0" x2="1" y2="1">
     <stop offset="0%" stop-color="#ff4444"/><stop offset="16%" stop-color="#ff8c00"/>
@@ -161,8 +171,8 @@
 
 <div class="container">
 
-  <!-- Lantern Sigil -->
-  <svg class="lantern-sigil" viewBox="0 0 100 150" width="92" height="138" aria-hidden="true">
+  <!-- Lantern Sigil with rainbow CROSS inside -->
+  <svg class="lantern-sigil" viewBox="0 0 100 150" width="100" height="150" aria-hidden="true">
     <defs><linearGradient id="rainbow" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#ff4444"/><stop offset="20%" stop-color="#ff8c00"/>
       <stop offset="40%" stop-color="#ffd700"/><stop offset="60%" stop-color="#44ff88"/>
@@ -171,14 +181,14 @@
     <line x1="50" y1="6" x2="50" y2="20" stroke="#c9a84c" stroke-width="2"/>
     <polyline points="30,52 50,20 70,52" fill="none" stroke="#c9a84c" stroke-width="2.5" stroke-linejoin="round"/>
     <polygon points="50,46 73,62 73,100 50,122 27,100 27,62" fill="none" stroke="#c9a84c" stroke-width="2.5" stroke-linejoin="round"/>
-    <line x1="50" y1="46" x2="50" y2="122" stroke="#c9a84c" stroke-width="1.2" opacity="0.5"/>
     <line x1="38" y1="55" x2="38" y2="111" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
     <line x1="62" y1="55" x2="62" y2="111" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
-    <g stroke="url(#rainbow)" stroke-width="1.4">
-      <line x1="50" y1="70" x2="50" y2="98"/><line x1="36" y1="84" x2="64" y2="84"/>
-      <line x1="40" y1="74" x2="60" y2="94"/><line x1="60" y1="74" x2="40" y2="94"/>
+    <!-- Rainbow CROSS (vertical + horizontal only) -->
+    <g stroke="url(#rainbow)" stroke-width="2.4" stroke-linecap="round">
+      <line x1="50" y1="66" x2="50" y2="102"/>
+      <line x1="34" y1="84" x2="66" y2="84"/>
     </g>
-    <circle cx="50" cy="84" r="3.2" fill="#ffd700"/>
+    <circle cx="50" cy="84" r="3.4" fill="#ffd700"/>
   </svg>
 
   <h1>Quantum Field<br>Walker</h1>
@@ -188,7 +198,6 @@
   <div class="divider"></div>
   <div class="scroll-cue">↓</div>
 
-  <!-- QFW Book Button -->
   <a class="read-btn" href="QFWBook.pdf" target="_blank" rel="noopener noreferrer">
     <div class="btn-eyebrow">The Book</div>
     <div class="btn-title">Quantum Field Walker</div>
@@ -197,7 +206,6 @@
     <span class="btn-arrow">→</span>
   </a>
 
-  <!-- Lantern Light Language Button -->
   <a class="read-btn lll" href="Lantern Light Language Updated.pdf" target="_blank" rel="noopener noreferrer">
     <div class="btn-eyebrow">The Guide</div>
     <div class="btn-title">Lantern Light Language</div>
@@ -206,7 +214,6 @@
     <span class="btn-arrow">→</span>
   </a>
 
-  <!-- Wellness Shield Button -->
   <a class="read-btn shield" href="QFW Wellness Shield and Field Manual.pdf" target="_blank" rel="noopener noreferrer">
     <div class="btn-eyebrow">The Manual</div>
     <div class="btn-title">Wellness Shield &amp; Field Manual</div>
