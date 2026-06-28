@@ -32,7 +32,7 @@
   @keyframes twinkle { from { opacity: 0.1; } to { opacity: 0.8; } }
   .fol {
     position: fixed; top: -70px; left: 50%; transform: translateX(-50%);
-    width: 560px; max-width: 120vw; opacity: 0.13; z-index: 1; pointer-events: none;
+    width: 560px; max-width: 120vw; opacity: 0.15; z-index: 1; pointer-events: none;
   }
   .container {
     position: relative; z-index: 2; max-width: 640px; margin: 0 auto;
@@ -40,39 +40,39 @@
   }
   .lantern-sigil {
     filter: drop-shadow(0 0 10px rgba(201,168,76,0.5));
-    margin-bottom: 22px; animation: fadeUp 1s 0.2s both ease-out;
+    margin-bottom: 24px; animation: fadeUp 1s 0.2s both ease-out;
   }
   h1 {
-    font-family: 'Cinzel Decorative', Georgia, serif; font-size: clamp(30px, 8vw, 54px);
+    font-family: 'Cinzel Decorative', Georgia, serif; font-size: clamp(34px, 8.5vw, 58px);
     font-weight: 700; color: #c9a84c;
     text-shadow: 0 0 20px rgba(201,168,76,0.5), 0 0 50px rgba(201,168,76,0.2);
-    letter-spacing: 3px; line-height: 1.25; margin-bottom: 12px;
+    letter-spacing: 3px; line-height: 1.25; margin-bottom: 14px;
     animation: fadeUp 1s 0.4s both ease-out;
   }
   .tagline {
-    font-style: italic; font-size: 20px; color: #3abfcc; letter-spacing: 2px;
-    margin-bottom: 10px; animation: fadeUp 1s 0.6s both ease-out;
+    font-style: italic; font-size: 22px; color: #3abfcc; letter-spacing: 2px;
+    margin-bottom: 12px; animation: fadeUp 1s 0.6s both ease-out;
   }
   .password {
-    font-size: 16px; color: #a98a3e; letter-spacing: 2px;
-    margin-bottom: 24px; animation: fadeUp 1s 0.8s both ease-out;
+    font-size: 18px; color: #a98a3e; letter-spacing: 2px;
+    margin-bottom: 26px; animation: fadeUp 1s 0.8s both ease-out;
   }
   .intro {
-    font-style: italic; font-size: 19px; color: #c4ddd5; line-height: 1.65;
-    max-width: 480px; margin-bottom: 32px; animation: fadeUp 1s 0.9s both ease-out;
+    font-style: italic; font-size: 21px; color: #c4ddd5; line-height: 1.65;
+    max-width: 500px; margin-bottom: 34px; animation: fadeUp 1s 0.9s both ease-out;
   }
   .divider {
-    width: 100px; height: 1px;
+    width: 110px; height: 1px;
     background: linear-gradient(90deg, transparent, #c9a84c, transparent);
-    margin-bottom: 18px; animation: fadeUp 1s 1s both ease-out;
+    margin-bottom: 20px; animation: fadeUp 1s 1s both ease-out;
   }
   .scroll-cue {
-    font-size: 20px; color: #a98a3e; margin-bottom: 34px;
+    font-size: 22px; color: #a98a3e; margin-bottom: 36px;
     animation: fadeUp 1s 1.05s both ease-out, bob 2.2s 1.6s infinite ease-in-out;
   }
   @keyframes bob { 0%,100% { transform: translateY(0); opacity:0.5; } 50% { transform: translateY(6px); opacity:1; } }
   .read-btn {
-    display: block; width: 100%; max-width: 440px; padding: 30px 28px;
+    display: block; width: 100%; max-width: 450px; padding: 32px 28px;
     background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(0,200,220,0.06));
     border: 1px solid rgba(201,168,76,0.3); border-radius: 4px;
     text-decoration: none; color: inherit; transition: all 0.35s ease;
@@ -93,38 +93,38 @@
   .read-btn.lll .btn-badge { color: #3aa5b2; border-color: rgba(58,191,204,0.3); }
   .read-btn.lll .btn-arrow { color: #3abfcc; }
   .read-btn.shield {
-    background: linear-gradient(135deg, rgba(136,102,255,0.08), rgba(221,68,255,0.06));
-    border-color: rgba(136,102,255,0.3); animation-delay: 1.4s;
+    background: linear-gradient(135deg, rgba(58,191,204,0.07), rgba(201,168,76,0.07));
+    border-color: rgba(201,168,76,0.3); animation-delay: 1.4s;
   }
-  .read-btn.shield:hover { border-color: #8866ff; box-shadow: 0 0 40px rgba(136,102,255,0.18); }
-  .read-btn.shield .btn-eyebrow { color: #9d83ff; }
-  .read-btn.shield .btn-sub { color: #dd44ff; }
-  .read-btn.shield .btn-badge { color: #9d83ff; border-color: rgba(136,102,255,0.3); }
-  .read-btn.shield .btn-arrow { color: #8866ff; }
+  .read-btn.shield:hover { border-color: #e8d9a0; box-shadow: 0 0 40px rgba(232,217,160,0.16); }
+  .read-btn.shield .btn-eyebrow { color: #3aa5b2; }
+  .read-btn.shield .btn-sub { color: #e8d9a0; }
+  .read-btn.shield .btn-badge { color: #a98a3e; border-color: rgba(201,168,76,0.35); }
+  .read-btn.shield .btn-arrow { color: #e8d9a0; }
   .read-btn.yt-btn {
-    background: linear-gradient(135deg, rgba(255,68,68,0.08), rgba(255,140,0,0.06));
-    border-color: rgba(255,68,68,0.3); animation-delay: 1.5s; margin-bottom: 50px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.07), rgba(58,191,204,0.06));
+    border-color: rgba(58,191,204,0.3); animation-delay: 1.5s; margin-bottom: 50px;
   }
-  .read-btn.yt-btn:hover { border-color: #ff6b4a; box-shadow: 0 0 40px rgba(255,68,68,0.18); }
-  .read-btn.yt-btn .btn-eyebrow { color: #cc5a3e; }
-  .read-btn.yt-btn .btn-sub { color: #ffb38a; }
-  .read-btn.yt-btn .btn-arrow { color: #ff6b4a; }
+  .read-btn.yt-btn:hover { border-color: #3abfcc; box-shadow: 0 0 40px rgba(58,191,204,0.18); }
+  .read-btn.yt-btn .btn-eyebrow { color: #a98a3e; }
+  .read-btn.yt-btn .btn-sub { color: #3abfcc; }
+  .read-btn.yt-btn .btn-arrow { color: #3abfcc; }
   .btn-eyebrow {
-    font-family: 'Cinzel Decorative', Georgia, serif; font-size: 12px; letter-spacing: 3px;
+    font-family: 'Cinzel Decorative', Georgia, serif; font-size: 13px; letter-spacing: 3px;
     color: #a98a3e; text-transform: uppercase; margin-bottom: 10px;
   }
-  .btn-title { font-size: 27px; color: #d9efe8; margin-bottom: 8px; font-weight: 500; }
-  .btn-sub { font-style: italic; font-size: 17px; color: #3abfcc; font-weight: 400; margin-bottom: 14px; }
+  .btn-title { font-size: 29px; color: #d9efe8; margin-bottom: 9px; font-weight: 500; }
+  .btn-sub { font-style: italic; font-size: 18px; color: #3abfcc; font-weight: 400; margin-bottom: 15px; }
   .btn-badge {
-    display: inline-block; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    display: inline-block; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
     color: #a98a3e; border: 1px solid rgba(169,138,62,0.5);
     padding: 5px 13px; border-radius: 20px; margin-bottom: 14px;
   }
-  .btn-arrow { font-size: 24px; color: #c9a84c; display: block; transition: transform 0.3s; }
+  .btn-arrow { font-size: 26px; color: #c9a84c; display: block; transition: transform 0.3s; }
   .read-btn:hover .btn-arrow { transform: translateX(6px); }
   .lanterns { display: flex; gap: 12px; justify-content: center; margin: 40px 0 10px; animation: fadeUp 1s 1.5s both ease-out; }
   .dot {
-    width: 11px; height: 11px; border-radius: 50%;
+    width: 12px; height: 12px; border-radius: 50%;
     box-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
     animation: pulse 3s infinite alternate ease-in-out; animation-delay: var(--dl, 0s);
   }
@@ -136,8 +136,8 @@
   .l5 { background:#44aaff; color:#44aaff; --dl:1.2s; }
   .l6 { background:#8866ff; color:#8866ff; --dl:1.5s; }
   .l7 { background:#dd44ff; color:#dd44ff; --dl:1.8s; }
-  .lantern-label { font-size: 12px; letter-spacing: 2.5px; color: #a98a3e; text-transform: uppercase; animation: fadeUp 1s 1.6s both ease-out; margin-bottom: 40px; }
-  .footer { font-size: 13px; letter-spacing: 2px; color: rgba(201,168,76,0.4); text-transform: uppercase; animation: fadeUp 1s 1.8s both ease-out; }
+  .lantern-label { font-size: 13px; letter-spacing: 2.5px; color: #a98a3e; text-transform: uppercase; animation: fadeUp 1s 1.6s both ease-out; margin-bottom: 40px; }
+  .footer { font-size: 14px; letter-spacing: 2px; color: rgba(201,168,76,0.4); text-transform: uppercase; animation: fadeUp 1s 1.8s both ease-out; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -147,12 +147,11 @@
 <body>
 <div class="stars" id="stars"></div>
 
+<!-- Flower of Life · teal-gold-white palette -->
 <svg class="fol" viewBox="0 0 400 400" aria-hidden="true">
   <defs><linearGradient id="folGrad" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0%" stop-color="#ff4444"/><stop offset="16%" stop-color="#ff8c00"/>
-    <stop offset="33%" stop-color="#ffd700"/><stop offset="50%" stop-color="#44ff88"/>
-    <stop offset="66%" stop-color="#44aaff"/><stop offset="83%" stop-color="#8866ff"/>
-    <stop offset="100%" stop-color="#dd44ff"/>
+    <stop offset="0%" stop-color="#3abfcc"/><stop offset="50%" stop-color="#c9a84c"/>
+    <stop offset="100%" stop-color="#f3ecd6"/>
   </linearGradient></defs>
   <g fill="none" stroke="url(#folGrad)" stroke-width="1">
     <circle cx="200" cy="200" r="40"/>
@@ -171,24 +170,21 @@
 
 <div class="container">
 
-  <!-- Lantern Sigil with bold rainbow CROSS inside -->
-  <svg class="lantern-sigil" viewBox="0 0 100 150" width="100" height="150" aria-hidden="true">
-    <defs><linearGradient id="rainbow" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ff4444"/><stop offset="20%" stop-color="#ff8c00"/>
-      <stop offset="40%" stop-color="#ffd700"/><stop offset="60%" stop-color="#44ff88"/>
-      <stop offset="80%" stop-color="#44aaff"/><stop offset="100%" stop-color="#dd44ff"/>
-    </linearGradient></defs>
+  <!-- Lantern Sigil with glowing gold-white Christ-cross -->
+  <svg class="lantern-sigil" viewBox="0 0 100 150" width="104" height="156" aria-hidden="true">
     <line x1="50" y1="6" x2="50" y2="20" stroke="#c9a84c" stroke-width="2"/>
     <polyline points="30,52 50,20 70,52" fill="none" stroke="#c9a84c" stroke-width="2.5" stroke-linejoin="round"/>
     <polygon points="50,46 73,62 73,100 50,122 27,100 27,62" fill="none" stroke="#c9a84c" stroke-width="2.5" stroke-linejoin="round"/>
     <line x1="38" y1="55" x2="38" y2="111" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
     <line x1="62" y1="55" x2="62" y2="111" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
-    <!-- Bold rainbow CROSS (vertical + horizontal) -->
-    <g stroke="url(#rainbow)" stroke-width="3.4" stroke-linecap="round">
-      <line x1="50" y1="62" x2="50" y2="106"/>
-      <line x1="30" y1="84" x2="70" y2="84"/>
+    <!-- Glowing gold-white cross -->
+    <g stroke="#fff6d8" stroke-width="3.6" stroke-linecap="round"
+       style="filter: drop-shadow(0 0 4px #ffd700) drop-shadow(0 0 8px #ffae00);">
+      <line x1="50" y1="60" x2="50" y2="108"/>
+      <line x1="28" y1="84" x2="72" y2="84"/>
     </g>
-    <circle cx="50" cy="84" r="4" fill="#ffd700"/>
+    <circle cx="50" cy="84" r="4.5" fill="#fff6d8"
+       style="filter: drop-shadow(0 0 6px #ffd700);"/>
   </svg>
 
   <h1>Quantum Field<br>Walker</h1>
