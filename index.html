@@ -8,9 +8,7 @@
 <meta property="og:title" content="Quantum Field Walker"/>
 <meta property="og:description" content="Wellness · sacred geometry · the seven lanterns of Leafshire."/>
 <meta property="og:type" content="website"/>
-<!-- SVG favicon (Chrome, Firefox, Edge, Android) -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><polygon points='16,4 26,12 26,24 16,30 6,24 6,12' fill='none' stroke='%23c9a84c' stroke-width='2'/><circle cx='16' cy='17' r='3' fill='%23ffd700'/></svg>"/>
-<!-- Optional: upload a 180x180 PNG named lantern-icon.png for iPhone home-screen icon -->
 <link rel="apple-touch-icon" href="lantern-icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
@@ -103,6 +101,14 @@
   .read-btn.shield .btn-sub { color: #dd44ff; }
   .read-btn.shield .btn-badge { color: #9d83ff; border-color: rgba(136,102,255,0.3); }
   .read-btn.shield .btn-arrow { color: #8866ff; }
+  .read-btn.yt-btn {
+    background: linear-gradient(135deg, rgba(255,68,68,0.08), rgba(255,140,0,0.06));
+    border-color: rgba(255,68,68,0.3); animation-delay: 1.5s; margin-bottom: 50px;
+  }
+  .read-btn.yt-btn:hover { border-color: #ff6b4a; box-shadow: 0 0 40px rgba(255,68,68,0.18); }
+  .read-btn.yt-btn .btn-eyebrow { color: #cc5a3e; }
+  .read-btn.yt-btn .btn-sub { color: #ffb38a; }
+  .read-btn.yt-btn .btn-arrow { color: #ff6b4a; }
   .btn-eyebrow {
     font-family: 'Cinzel Decorative', Georgia, serif; font-size: 12px; letter-spacing: 3px;
     color: #a98a3e; text-transform: uppercase; margin-bottom: 10px;
@@ -116,11 +122,6 @@
   }
   .btn-arrow { font-size: 24px; color: #c9a84c; display: block; transition: transform 0.3s; }
   .read-btn:hover .btn-arrow { transform: translateX(6px); }
-  .yt-link {
-    font-size: 16px; letter-spacing: 1.5px; color: #a98a3e; text-decoration: none;
-    transition: color 0.3s; animation: fadeUp 1s 1.4s both ease-out; margin-bottom: 50px;
-  }
-  .yt-link:hover { color: #c9a84c; }
   .lanterns { display: flex; gap: 12px; justify-content: center; margin: 40px 0 10px; animation: fadeUp 1s 1.5s both ease-out; }
   .dot {
     width: 11px; height: 11px; border-radius: 50%;
@@ -138,7 +139,6 @@
   .lantern-label { font-size: 12px; letter-spacing: 2.5px; color: #a98a3e; text-transform: uppercase; animation: fadeUp 1s 1.6s both ease-out; margin-bottom: 40px; }
   .footer { font-size: 13px; letter-spacing: 2px; color: rgba(201,168,76,0.4); text-transform: uppercase; animation: fadeUp 1s 1.8s both ease-out; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  /* Respect users who prefer less motion (accessibility + comfort) */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
   }
@@ -171,7 +171,7 @@
 
 <div class="container">
 
-  <!-- Lantern Sigil with rainbow CROSS inside -->
+  <!-- Lantern Sigil with bold rainbow CROSS inside -->
   <svg class="lantern-sigil" viewBox="0 0 100 150" width="100" height="150" aria-hidden="true">
     <defs><linearGradient id="rainbow" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#ff4444"/><stop offset="20%" stop-color="#ff8c00"/>
@@ -183,12 +183,12 @@
     <polygon points="50,46 73,62 73,100 50,122 27,100 27,62" fill="none" stroke="#c9a84c" stroke-width="2.5" stroke-linejoin="round"/>
     <line x1="38" y1="55" x2="38" y2="111" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
     <line x1="62" y1="55" x2="62" y2="111" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
-    <!-- Rainbow CROSS (vertical + horizontal only) -->
-    <g stroke="url(#rainbow)" stroke-width="2.4" stroke-linecap="round">
-      <line x1="50" y1="66" x2="50" y2="102"/>
-      <line x1="34" y1="84" x2="66" y2="84"/>
+    <!-- Bold rainbow CROSS (vertical + horizontal) -->
+    <g stroke="url(#rainbow)" stroke-width="3.4" stroke-linecap="round">
+      <line x1="50" y1="62" x2="50" y2="106"/>
+      <line x1="30" y1="84" x2="70" y2="84"/>
     </g>
-    <circle cx="50" cy="84" r="3.4" fill="#ffd700"/>
+    <circle cx="50" cy="84" r="4" fill="#ffd700"/>
   </svg>
 
   <h1>Quantum Field<br>Walker</h1>
@@ -217,13 +217,16 @@
   <a class="read-btn shield" href="QFW Wellness Shield and Field Manual.pdf" target="_blank" rel="noopener noreferrer">
     <div class="btn-eyebrow">The Manual</div>
     <div class="btn-title">Wellness Shield &amp; Field Manual</div>
-    <div class="btn-sub">An illuminated compendium after Hildegard &amp; da Vinci</div>
+    <div class="btn-sub">An illuminated compendium of sacred wellness</div>
     <div class="btn-badge">Free to Read &nbsp;·&nbsp; © 2026 All Rights Reserved</div>
     <span class="btn-arrow">→</span>
   </a>
 
-  <a class="yt-link" href="https://www.youtube.com/@QuantumFieldWalker" target="_blank" rel="noopener noreferrer">
-    ▶ &nbsp;youtube.com/@QuantumFieldWalker
+  <a class="read-btn yt-btn" href="https://www.youtube.com/@QuantumFieldWalker" target="_blank" rel="noopener noreferrer">
+    <div class="btn-eyebrow">The Channel</div>
+    <div class="btn-title">▶ &nbsp;Watch on YouTube</div>
+    <div class="btn-sub">Living lessons, songs &amp; the walking path</div>
+    <span class="btn-arrow">→</span>
   </a>
 
   <div class="lanterns">
