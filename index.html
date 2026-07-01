@@ -8,9 +8,12 @@
 <meta property="og:title" content="Quantum Field Walker"/>
 <meta property="og:description" content="Wellness · sacred geometry · the seven lanterns of Leafshire."/>
 <meta property="og:type" content="website"/>
+<meta property="og:url" content="https://quantumfieldwalker.github.io/"/>
+<meta property="og:image" content="https://quantumfieldwalker.github.io/lantern-icon.png"/>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><polygon points='16,4 26,12 26,24 16,30 6,24 6,12' fill='none' stroke='%23c9a84c' stroke-width='2'/><circle cx='16' cy='17' r='3' fill='%23ffd700'/></svg>"/>
 <link rel="apple-touch-icon" href="lantern-icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -98,9 +101,14 @@
     border-color: #c9a84c; box-shadow: 0 0 40px rgba(201,168,76,0.15);
     transform: translateY(-3px);
   }
+  .read-btn:focus-visible {
+    outline: 2px solid #c9a84c; outline-offset: 3px;
+    border-color: #c9a84c;
+  }
   .read-btn.lll  { animation-delay: 1.25s; }
   .read-btn.shield { animation-delay: 1.4s; }
-  .read-btn.yt-btn { animation-delay: 1.5s; margin-bottom: 50px; }
+  .read-btn.trail { animation-delay: 1.5s; }
+  .read-btn.yt-btn { animation-delay: 1.6s; margin-bottom: 50px; }
   .read-btn:hover .btn-arrow { transform: translateX(6px); }
 
   .btn-eyebrow {
@@ -223,6 +231,14 @@
     <span class="btn-arrow">→</span>
   </a>
 
+  <a class="read-btn trail" href="QFW Shadow Trail.pdf" target="_blank" rel="noopener noreferrer">
+    <div class="btn-eyebrow">The Gamebook</div>
+    <div class="btn-title">The Shadow Trail</div>
+    <div class="btn-sub">A choose-your-own-adventure through shadow, body &amp; the eight lanterns</div>
+    <div class="btn-badge">Free to Read · © 2026 QFW</div>
+    <span class="btn-arrow">→</span>
+  </a>
+
   <a class="read-btn yt-btn" href="https://www.youtube.com/@QuantumFieldWalker" target="_blank" rel="noopener noreferrer">
     <div class="btn-eyebrow">The Channel</div>
     <div class="btn-title">▶ &nbsp;Watch on YouTube</div>
@@ -236,7 +252,7 @@
     <div class="dot l7"></div>
   </div>
   <p class="lantern-label">The Seven Lanterns of Leafshire</p>
-  <p class="footer">© 2026 Sir Leemerton of Leafshire · Keeper of the Sacred Branch * Some concepts and quotes alchemized from other sources</p>
+  <p class="footer">© 2026 Sir Leemerton of Leafshire · Keeper of the Sacred Branch · Some concepts and quotes alchemized from other sources</p>
 </div>
 <script>
   const s = document.getElementById('stars');
