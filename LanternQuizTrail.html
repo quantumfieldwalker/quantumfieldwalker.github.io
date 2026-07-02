@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>The Lantern Quiz Trail · Quantum Field Walker</title>
+<meta name="description" content="A gamified wellness &amp; wisdom quiz with Sir Leemerton of Leafshire. Light all seven lanterns."/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><polygon points='16,4 26,12 26,24 16,30 6,24 6,12' fill='none' stroke='%23c9a84c' stroke-width='2'/><circle cx='16' cy='17' r='3' fill='%23ffd700'/></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #050d0f; }
+  body {
+    color: #d9efe8;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    min-height: 100vh; text-align: center;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: rgba(201,168,76,0.2);
+    overflow-x: hidden;
+  }
+  .wrap { position: relative; z-index: 2; max-width: 620px; margin: 0 auto; padding: 44px 20px 60px; }
+
+  .eyebrow {
+    font-family: 'Cinzel Decorative', serif; font-size: 12px; letter-spacing: 4px;
+    color: #c9a84c; text-transform: uppercase; margin-bottom: 10px;
+  }
+  h1 {
+    font-family: 'Cinzel Decorative', serif; font-weight: 700;
+    font-size: clamp(26px, 7vw, 42px); color: #e8cf82; letter-spacing: 2px;
+    line-height: 1.2; margin-bottom: 8px;
+    text-shadow: 0 0 22px rgba(255,246,216,0.2);
+  }
+  .sub { font-style: italic; font-size: 19px; color: #3abfcc; margin-bottom: 26px; }
+
+  /* ===== the seven lantern dots — the living scoreboard ===== */
+  .lanterns { display: flex; gap: 13px; justify-content: center; margin: 6px 0 26px; }
+  .dot {
+    width: 15px; height: 15px; border-radius: 50%;
+    background: #1c2b30; border: 1px solid rgba(201,168,76,0.35);
+    transition: background 0.6s, box-shadow 0.6s, transform 0.4s;
+  }
+  .dot.lit { border-color: transparent; transform: scale(1.15); }
+  .dot.lit.c1 { background:#ff4444; box-shadow: 0 0 9px #ff4444, 0 0 18px #ff4444; }
+  .dot.lit.c2 { background:#ff8c00; box-shadow: 0 0 9px #ff8c00, 0 0 18px #ff8c00; }
+  .dot.lit.c3 { background:#ffd700; box-shadow: 0 0 9px #ffd700, 0 0 18px #ffd700; }
+  .dot.lit.c4 { background:#44ff88; box-shadow: 0 0 9px #44ff88, 0 0 18px #44ff88; }
+  .dot.lit.c5 { background:#44aaff; box-shadow: 0 0 9px #44aaff, 0 0 18px #44aaff; }
+  .dot.lit.c6 { background:#8866ff; box-shadow: 0 0 9px #8866ff, 0 0 18px #8866ff; }
+  .dot.lit.c7 { background:#dd44ff; box-shadow: 0 0 9px #dd44ff, 0 0 18px #dd44ff; }
+  .dot.current { border-color: #c9a84c; box-shadow: 0 0 8px rgba(201,168,76,0.5); }
+
+  .card {
+    background: linear-gradient(160deg, rgba(201,168,76,0.07), rgba(58,191,204,0.04));
+    border: 1px solid rgba(201,168,76,0.3); border-radius: 6px;
+    padding: 30px 24px; margin-bottom: 22px; text-align: left;
+  }
+  .lantern-tag {
+    font-family: 'Cinzel Decorative', serif; font-size: 12px; letter-spacing: 3px;
+    text-transform: uppercase; margin-bottom: 14px;
+  }
+  .qtext { font-size: 23px; line-height: 1.45; color: #e8d9a0; margin-bottom: 20px; font-weight: 500; }
+
+  .opt {
+    display: block; width: 100%; text-align: left;
+    font-family: 'Cormorant Garamond', Georgia, serif; font-size: 19px; line-height: 1.4;
+    color: #d9efe8; background: rgba(5,13,15,0.5);
+    border: 1px solid rgba(58,191,204,0.3); border-radius: 4px;
+    padding: 14px 16px; margin-bottom: 11px; cursor: pointer;
+    min-height: 48px; transition: border-color 0.25s, background 0.25s, transform 0.15s;
+  }
+  .opt:hover { border-color: #c9a84c; background: rgba(201,168,76,0.08); }
+  .opt:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
+  .opt:active { transform: scale(0.99); }
+  .opt.right { border-color: #44ff88; background: rgba(68,255,136,0.1); }
+  .opt.wrong { border-color: #ff4444; background: rgba(255,68,68,0.1); }
+  .opt:disabled { cursor: default; opacity: 0.85; }
+
+  .feedback {
+    border-left: 3px solid #c9a84c; padding: 12px 16px; margin-top: 6px;
+    text-align: left; background: rgba(201,168,76,0.05); border-radius: 0 4px 4px 0;
+  }
+  .quip { font-style: italic; font-size: 19px; color: #3abfcc; margin-bottom: 6px; }
+  .teach { font-size: 17px; line-height: 1.5; color: #d9efe8; }
+
+  .btn {
+    display: inline-block; font-family: 'Cinzel Decorative', serif;
+    font-size: 15px; letter-spacing: 2px; text-transform: uppercase;
+    color: #e8cf82; background: rgba(201,168,76,0.1);
+    border: 1px solid #c9a84c; border-radius: 4px;
+    padding: 15px 34px; margin-top: 18px; cursor: pointer;
+    min-height: 48px; transition: background 0.3s, box-shadow 0.3s;
+  }
+  .btn:hover { background: rgba(201,168,76,0.22); box-shadow: 0 0 26px rgba(201,168,76,0.18); }
+  .btn:focus-visible { outline: 2px solid #c9a84c; outline-offset: 3px; }
+
+  .leem { font-size: 17px; font-style: italic; color: rgba(217,239,232,0.75); line-height: 1.55; }
+  .divider { width: 100px; height: 1px; margin: 22px auto;
+    background: linear-gradient(90deg, transparent, #c9a84c, transparent); }
+
+  /* Novael hush screen */
+  .hush { padding: 60px 10px; }
+  .hush p { font-size: 22px; font-style: italic; color: #8fa8b8; line-height: 1.7; }
+
+  .rank { font-family: 'Cinzel Decorative', serif; font-size: clamp(20px,5.5vw,30px);
+    color: #e8cf82; margin: 14px 0 8px; }
+  .scoreline { font-size: 20px; color: #3abfcc; font-style: italic; margin-bottom: 14px; }
+
+  .footer { margin-top: 40px; font-size: 12.5px; letter-spacing: 2px;
+    color: rgba(201,168,76,0.4); text-transform: uppercase; line-height: 1.8; }
+  .footer a { color: rgba(201,168,76,0.6); text-decoration: none; }
+  .footer a:hover { color: #c9a84c; }
+
+  .hidden { display: none; }
+
+  /* stars */
+  .stars { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .stars span { position: absolute; background: white; border-radius: 50%; opacity: 0.45; }
+  @keyframes twinkle { from { opacity: 0.1; } to { opacity: 0.8; } }
+  @keyframes gentlePop { 0% { transform: scale(1); } 50% { transform: scale(1.35); } 100% { transform: scale(1.15); } }
+  @media (prefers-reduced-motion: no-preference) {
+    .stars span { animation: twinkle var(--d,4s) infinite alternate ease-in-out; animation-delay: var(--dl,0s); }
+    .dot.lit { animation: gentlePop 0.7s ease-out; }
+  }
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+
+<div class="wrap">
+  <div class="eyebrow">Quantum Field Walker Presents</div>
+  <h1>The Lantern Quiz Trail</h1>
+  <p class="sub">~ Seven questions · Seven lanterns · One walk ~</p>
+
+  <div class="lanterns" id="lanternRow" aria-label="Lantern progress">
+    <div class="dot c1"></div><div class="dot c2"></div><div class="dot c3"></div>
+    <div class="dot c4"></div><div class="dot c5"></div><div class="dot c6"></div>
+    <div class="dot c7"></div>
+  </div>
+  <p id="qCounter" style="font-size:14px; letter-spacing:2px; color:rgba(201,168,76,0.6); text-transform:uppercase; margin:-12px 0 20px;"></p>
+
+  <noscript>
+    <div class="card"><p class="qtext" style="text-align:center;">This trail needs JavaScript lit to walk it. Please enable it in your browser — Sir Leemerton cannot quiz in the dark. (He tried once. He quizzed a stump for an hour.)</p></div>
+  </noscript>
+
+  <!-- START SCREEN -->
+  <div id="startScreen">
+    <div class="card" style="text-align:center;">
+      <p class="leem">Sir Leemerton adjusts his fractal spectacles and taps the Sacred Branch twice.</p>
+      <div class="divider"></div>
+      <p class="qtext" style="text-align:center;">&ldquo;Welcome, walker. Seven lanterns wait in the dark, and each one opens with a question. Answer well and it lights. Answer poorly and&hellip; well, humility was the first glyph anyway, so you cannot truly lose. Pronto tried this quiz last spring. He is on question two. He is very proud.&rdquo;</p>
+      <button class="btn" id="startBtn">Begin the Walk</button>
+    </div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div id="quizScreen" class="hidden">
+    <div class="card">
+      <div class="lantern-tag" id="lanternTag"></div>
+      <div class="qtext" id="qText"></div>
+      <div id="optBox"></div>
+      <div class="feedback hidden" id="feedback" aria-live="polite">
+        <p class="quip" id="quip"></p>
+        <p class="teach" id="teach"></p>
+      </div>
+      <div style="text-align:center;">
+        <button class="btn hidden" id="nextBtn">Walk On →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOVAEL HUSH -->
+  <div id="hushScreen" class="hidden">
+    <div class="hush">
+      <p>The Eighth Lantern cannot be quizzed.</p>
+      <p>It can only be entered.</p>
+      <div class="divider"></div>
+      <p style="font-size:18px;">(Sit for one full breath. Sir Leemerton is timing you. Kindly. With a sundial.)</p>
+      <button class="btn" id="receiveBtn">Receive Your Lanterns</button>
+    </div>
+  </div>
+
+  <!-- END SCREEN -->
+  <div id="endScreen" class="hidden">
+    <div class="card" style="text-align:center;">
+      <div class="rank" id="rankTitle"></div>
+      <p class="scoreline" id="scoreLine"></p>
+      <p class="scoreline" id="dimLine" style="font-size:16px; color:rgba(217,239,232,0.65);"></p>
+      <p class="leem" id="rankQuip"></p>
+      <div class="divider"></div>
+      <p class="teach" style="text-align:center;">Walk gently. Name truly. Rest when needed. Return greener.</p>
+      <button class="btn" id="againBtn">Walk Again</button>
+    </div>
+  </div>
+
+  <p class="footer">
+    © 2026 Sir Leemerton of Leafshire · Keeper of the Sacred Branch<br/>
+    <a href="index.html">← Return to Quantum Field Walker</a><br/>
+    For reflection &amp; education only · Not medical advice
+  </p>
+</div>
+
+<script>
+// ============ STARFIELD ============
+(function(){
+  const s = document.getElementById('stars');
+  for (let i = 0; i < 90; i++) {
+    const el = document.createElement('span');
+    const size = Math.random() > 0.9 ? 2.5 : 1.5;
+    el.style.cssText = 'left:'+Math.random()*100+'%;top:'+Math.random()*100+'%;width:'+size+'px;height:'+size+'px;--d:'+(2+Math.random()*5)+'s;--dl:'+(Math.random()*6)+'s;';
+    s.appendChild(el);
+  }
+})();
+
+// ============ QUESTION BANK — 3 per lantern, 1 drawn per walk ============
+const LANTERNS = [
+  { name:'Red · Tharnaz · 396 Hz · Grounding', color:'#ff4444', q:[
+    { t:'Your body has been tense all day. Which practice best tells the nervous system “the vigil is over”?',
+      o:['Walk barefoot and drop the shoulders on a long exhale','Check email, but faster','Hold your breath heroically until Tuesday','Yell at the nearest squirrel'], a:0,
+      teach:'Grounding through the feet plus a long exhale signals safety to the body. The squirrel, for the record, did nothing wrong.' },
+    { t:'In the Body Oracle, chronically sore shoulders symbolically ask which question?',
+      o:['“Whose weight am I carrying that was never mine?”','“Where is the nearest gym?”','“Have you tried more caffeine?”','“Do these shoulders make me look tall?”'], a:0,
+      teach:'Shoulders are where we wear other people\u2019s weather. (Real-world rule: desks, pillows, and rotator cuffs see a clinician first.)' },
+    { t:'Breathing out longer than you breathe in tends to…',
+      o:['Activate the body\u2019s calming (parasympathetic) system','Summon owls','Increase panic dramatically','Void the warranty on your lungs'], a:0,
+      teach:'The long exhale is the body\u2019s built-in brake pedal. Owls remain unsummoned, though they approve.' }
+  ]},
+  { name:'Orange · Zelvian · 417 Hz · Flow', color:'#ff8c00', q:[
+    { t:'The Zelvian release breath goes…',
+      o:['4 counts in · hold 4 · release 8','8 in, hold forever, become a statue','Only through one nostril while hopping','Inhale opinions, exhale facts'], a:0,
+      teach:'Four in, hold four, out eight — the extended release is where the letting-go actually happens.' },
+    { t:'Hildegard of Bingen\u2019s word for the green life-force flowing through all living things:',
+      o:['Viriditas','Chlorophyllia','Photosynthesizzle','Vibe-iditas'], a:0,
+      teach:'Viriditas — “greening power.” A 12th-century word that modern ecology keeps accidentally re-proving.' },
+    { t:'Fascia — the body\u2019s connective webbing — loosens best with…',
+      o:['Movement, breath, and unapologetic humming or sighing','Stern lectures about posture','Ignoring it for a decade or two','Duct tape'], a:0,
+      teach:'Sound and motion move fascia. The sigh without apology is a liturgical act in the Zelvian field.' }
+  ]},
+  { name:'Yellow · Kavreth · 528 Hz · Clarity', color:'#ffd700', q:[
+    { t:'“You\u2019re wrong because your hat is ridiculous” is which logical fallacy?',
+      o:['Ad hominem — attacking the person, not the point','Strawman','Appeal to millinery','Ad nauseam'], a:0,
+      teach:'Ad hominem targets the speaker instead of the argument. The hat may indeed be ridiculous. Irrelevant!' },
+    { t:'A “strawman” argument is when someone…',
+      o:['Misrepresents your position to attack it more easily','Is literally made of straw','Farms rhetorically','Argues with scarecrows (a niche hobby)'], a:0,
+      teach:'Name the move and it loses half its mass: “That is not what I said — here is what I said.”' },
+    { t:'“Either you agree with me, or you hate joy itself” is…',
+      o:['A false dilemma — the world has more than two doors','A fair and balanced summary','Solid peer-reviewed science','The fourth law of thermodynamics'], a:0,
+      teach:'False dilemmas hide the third, fourth, and fifth options. Reality is roomier than either/or.' }
+  ]},
+  { name:'Green · Lunetha · 639 Hz · Heart', color:'#44ff88', q:[
+    { t:'Real forest science: trees share nutrients and warnings through…',
+      o:['Underground mycorrhizal fungal networks','Tiny mail carriers with tiny satchels','Forest Wi-Fi (password: viriditas)','Gossip, mostly'], a:0,
+      teach:'The “wood wide web” is real — fungal threads connect roots, and nourishment moves invisibly, root to root. The heart works the same way.' },
+    { t:'An octopus has how many hearts?',
+      o:['Three','One, like a sensible animal','Zero — it runs entirely on vibes','Fourteen, but only on weekends'], a:0,
+      teach:'Three hearts, blue blood, and it still hides from everyone. Even the most-hearted creature needs a safe cave. Be kind to your inner octopus.' },
+    { t:'The 5-5 breath (five counts in, five out) teaches the heart that…',
+      o:['Rhythm itself is relationship — the body already knows how to stay','Math is romantic','Breathing is a competitive sport','Counting cures everything'], a:0,
+      teach:'Steady rhythm tells the nervous system: I am not leaving. That sentence, repeated, is most of love.' }
+  ]},
+  { name:'Blue · Voquiel · 741 Hz · Voice', color:'#44aaff', q:[
+    { t:'The Voquiel morning practice for a swallowed voice:',
+      o:['Write one true line before speaking to anyone','Argue with the mirror until it concedes','Recite the phone book, with feeling','Wait for a crisis to say anything real'], a:0,
+      teach:'One honest line a day keeps the prophetic register from rusting shut. Half a sentence counts.' },
+    { t:'A jaw clenched for years is often carrying…',
+      o:['Sentences swallowed before they were born','Spare snacks for later','Nothing — jaws are purely decorative','A grudge against dentists'], a:0,
+      teach:'The body holds what the mind couldn\u2019t process. Unclench, hum long on the exhale, and say: my voice is allowed to name this.' },
+    { t:'“All the smart people already agree with me” is which pressure tactic?',
+      o:['Borrowed authority','Genuine kindness','Actual evidence','The transitive property of smugness'], a:0,
+      teach:'Borrowed authority substitutes a crowd for an argument. Ask instead: what is the evidence itself?' }
+  ]},
+  { name:'Indigo · Nimrath · 852 Hz · Vision', color:'#8866ff', q:[
+    { t:'Reading your dream journal aloud, however fragmented, is a practice of…',
+      o:['Self-witnessing — hearing your inner life in your own voice','Bedtime karaoke','Thoroughly confusing the cat','Manifesting better dreams via volume'], a:0,
+      teach:'To be seen begins with seeing yourself without flinching. (The cat was already confused. Cats live there.)' },
+    { t:'Hildegard of Bingen was…',
+      o:['A 12th-century abbess, composer, physician, and visionary','A 1980s German synth band','A type of artisanal pretzel','The inventor of the kazoo'], a:0,
+      teach:'Abbess, theologian, herbalist, composer of the Ordo Virtutum — a whole renaissance, three centuries early.' },
+    { t:'Chosen solitude differs from lonely exile because…',
+      o:['It is entered freely — the soul\u2019s honest quarter, not a punishment','It has significantly better snacks','There is no difference whatsoever','Exile has more legroom'], a:0,
+      teach:'Hildegard\u2019s North: the same darkness is fragmentation when you\u2019re driven there, and integration when you walk in willingly.' }
+  ]},
+  { name:'Violet · Elzura · 963 Hz · Transcendence', color:'#dd44ff', q:[
+    { t:'The Elzura teaching: transcendence must stay tethered to…',
+      o:['The soles of the feet — heaven and earth are one circuit','The clouds exclusively','A really, really good ladder','Whoever is tallest'], a:0,
+      teach:'The crown is only holy while connected to the ground. Descent is not failure — it is where the love lands.' },
+    { t:'In the codex, frankincense goes at the crown AND the soles because…',
+      o:['Descent completes the arc — what is below is not less than above','It smells like feet anyway','Buying twice pleases the merchant','Symmetry is trendy'], a:0,
+      teach:'One resin, two ends of the same circuit. The Word came down — that is the whole shape of the story.' },
+    { t:'“In the beginning was the Word” — the Word, in Latin, is…',
+      o:['Verbum','Verbatim','Vibranium','Verbose'], a:0,
+      teach:'Verbum — the center from which every lantern, glyph, and quiz question takes its meaning. Also not a Marvel metal.' }
+  ]}
+];
+
+// ============ QUIPS ============
+const RIGHT_QUIPS = [
+  '“Correct. I would applaud, but I am holding a branch.”',
+  '“Precisely so. The squirrels owe me an acorn.”',
+  '“Right you are — you stand tallest at dawn and correctest just now.”',
+  '“Well walked. Even Confucius nodded, and he never nods.”',
+  '“Yes! Orbison just recalculated his opinion of you. Upward.”',
+  '“Correct. Somewhere, a lantern-maker smiles.”',
+  '“Indeed. Pronto will celebrate this... by Thursday.”'
+];
+const WRONG_QUIPS = [
+  '“Not quite — but humility was the first glyph, so technically you are winning.”',
+  '“Ah, no. A beautiful wrongness, though. Frame it.”',
+  '“Incorrect — yet the trail forgives faster than the internet does.”',
+  '“Alas. Argo believed in you. Argo believes in everyone. It is his whole thing.”',
+  '“Not so — but wrong turns are how the forest teaches geography.”'
+];
+
+// ============ GAME STATE (in-memory only) ============
+let round = 0, lit = 0, picks = [];
+
+const $ = id => document.getElementById(id);
+const shuffle = arr => arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(p=>p[1]);
+
+function newWalk(){
+  round = 0; lit = 0;
+  picks = LANTERNS.map(L => L.q[Math.floor(Math.random()*L.q.length)]);
+  document.querySelectorAll('.dot').forEach(d => d.classList.remove('lit','current'));
+  $('startScreen').classList.add('hidden');
+  $('endScreen').classList.add('hidden');
+  $('hushScreen').classList.add('hidden');
+  $('quizScreen').classList.remove('hidden');
+  showRound();
+}
+
+function showRound(){
+  const L = LANTERNS[round], Q = picks[round];
+  document.querySelectorAll('.dot').forEach((d,i)=> d.classList.toggle('current', i===round));
+  $('qCounter').textContent = 'Question ' + (round+1) + ' of 7';
+  $('lanternTag').textContent = L.name;
+  $('lanternTag').style.color = L.color;
+  $('qText').textContent = Q.t;
+  $('feedback').classList.add('hidden');
+  $('nextBtn').classList.add('hidden');
+
+  const box = $('optBox'); box.innerHTML = '';
+  // shuffle options but remember where the right one lands
+  const order = shuffle(Q.o.map((text,i)=>({text, correct: i===Q.a})));
+  order.forEach(opt => {
+    const b = document.createElement('button');
+    b.className = 'opt'; b.type = 'button'; b.textContent = opt.text;
+    b.addEventListener('click', ()=> answer(b, opt.correct, order));
+    box.appendChild(b);
+  });
+}
+
+function answer(btn, correct, order){
+  const buttons = Array.from(document.querySelectorAll('.opt'));
+  buttons.forEach((b,i) => { b.disabled = true; if(order[i].correct) b.classList.add('right'); });
+  if(!correct) btn.classList.add('wrong');
+  if(correct){
+    document.querySelectorAll('.dot')[round].classList.add('lit');
+    lit++;
+    $('quip').textContent = RIGHT_QUIPS[Math.floor(Math.random()*RIGHT_QUIPS.length)];
+  } else {
+    $('quip').textContent = WRONG_QUIPS[Math.floor(Math.random()*WRONG_QUIPS.length)];
+  }
+  $('teach').textContent = picks[round].teach;
+  $('feedback').classList.remove('hidden');
+  $('nextBtn').classList.remove('hidden');
+  $('nextBtn').textContent = round < 6 ? 'Walk On →' : 'Approach the Eighth →';
+  $('nextBtn').focus();
+}
+
+function next(){
+  round++;
+  if(round < 7){ showRound(); }
+  else {
+    $('quizScreen').classList.add('hidden');
+    document.querySelectorAll('.dot').forEach(d => d.classList.remove('current'));
+    $('hushScreen').classList.remove('hidden');
+    $('qCounter').textContent = '';
+  }
+}
+
+function receive(){
+  $('hushScreen').classList.add('hidden');
+  $('endScreen').classList.remove('hidden');
+  let title, quip;
+  if(lit === 7){ title = '✦ Keeper of the Sacred Branch ✦';
+    quip = '“All seven. I am removing my spectacles, which I only do at weddings and eclipses. Leafshire salutes you.”'; }
+  else if(lit >= 5){ title = 'Lantern-Bearer of Leafshire';
+    quip = '“Five or more lanterns lit! The forest is visibly brighter, and Orbison has updated your file to \u2018promising.\u2019”'; }
+  else if(lit >= 3){ title = 'Apprentice of the Trail';
+    quip = '“A respectable glow. Confucius says the half-lit forest teaches you where the light is needed. He also says feed him.”'; }
+  else { title = 'Beloved Beginner · Glyph of Aurelus';
+    quip = '“Few lanterns, much humility — and humility, I remind you, was the FIRST glyph. You have earned it magnificently. Walk again; the questions reshuffle, and the forest keeps no grudges.”'; }
+  $('rankTitle').textContent = title;
+  $('scoreLine').textContent = lit + ' of 7 lanterns lit';
+  const dim = [];
+  document.querySelectorAll('.dot').forEach((d,i)=>{
+    if(!d.classList.contains('lit')){
+      const parts = LANTERNS[i].name.split(' \u00b7 ');
+      dim.push(parts[0] + ' \u00b7 ' + parts[1]);
+    }
+  });
+  $('dimLine').textContent = dim.length
+    ? 'Still dim: ' + dim.join('  \u00b7  ') + ' \u2014 the reshuffle awaits.'
+    : 'Every lantern burns. The forest is showing off now.';
+  $('rankQuip').textContent = quip;
+}
+
+$('startBtn').addEventListener('click', newWalk);
+$('nextBtn').addEventListener('click', next);
+$('receiveBtn').addEventListener('click', receive);
+$('againBtn').addEventListener('click', newWalk);
+</script>
+</body>
+</html>
