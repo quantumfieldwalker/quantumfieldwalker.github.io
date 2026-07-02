@@ -102,6 +102,14 @@
   .l6 { background:#8866ff; color:#8866ff; --dl:1.5s; }
   .l7 { background:#dd44ff; color:#dd44ff; --dl:1.8s; }
   .lantern-label { font-size: 13px; letter-spacing: 2.5px; color: #c9a84c; text-transform: uppercase; margin-bottom: 40px; }
+  .disclaimer {
+    max-width: 480px; margin: 0 auto 26px;
+    font-size: 13.5px; line-height: 1.75; letter-spacing: 0.5px;
+    color: rgba(217,239,232,0.45); font-style: italic;
+    border-top: 1px solid rgba(201,168,76,0.18);
+    border-bottom: 1px solid rgba(201,168,76,0.18);
+    padding: 14px 10px;
+  }
   .footer { font-size: 14px; letter-spacing: 2px; color: rgba(201,168,76,0.4); text-transform: uppercase; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -123,6 +131,7 @@
     .lanterns { animation: fadeUp 1s 1.6s both ease-out; }
     .dot { animation: pulse 3s infinite alternate ease-in-out; animation-delay: var(--dl, 0s); }
     .lantern-label { animation: fadeUp 1s 1.7s both ease-out; }
+    .disclaimer { animation: fadeUp 1s 1.8s both ease-out; }
     .footer { animation: fadeUp 1s 1.9s both ease-out; }
   }
 </style>
@@ -226,6 +235,9 @@
     <div class="dot l7"></div>
   </div>
   <p class="lantern-label">The Seven Lanterns of Leafshire</p>
+
+  <p class="disclaimer">All content is offered for spiritual reflection, education &amp; creative enjoyment only — it is not medical, psychological, nutritional, or legal advice. Consult qualified professionals for any health concern. Nothing here is for sale; no products, supplements, authors, or resources mentioned anywhere on this site or its books are endorsements, sponsorships, or affiliations — they are educational references only.</p>
+
   <p class="footer">© 2026 Sir Leemerton of Leafshire · Keeper of the Sacred Branch · Some concepts and quotes alchemized from other sources</p>
 </div>
 <script>
