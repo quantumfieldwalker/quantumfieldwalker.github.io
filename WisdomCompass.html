@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Wisdom Compass — An Epistemic Navigation Instrument</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#080B16;
+    --panel:#10162B;
+    --panel2:#141B33;
+    --gold:#D8B36A;
+    --gold-bright:#F3D98F;
+    --gold-dim:#8F7A48;
+    --parchment:#EBDFC4;
+    --muted:#9A8F72;
+    --c1:#D8524A; /* red — Layer */
+    --c2:#E08A3C; /* orange — Lens */
+    --c3:#E7C34F; /* yellow — Evidence */
+    --c4:#5FA870; /* green — Pattern */
+    --c5:#4E8FC7; /* blue — Meaning */
+    --c6:#6C63B8; /* indigo — Synchronization */
+    --c7:#A06CC4; /* violet — Mystery */
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{background:var(--void);}
+  body{
+    font-family:'Cormorant Garamond', Georgia, serif;
+    color:var(--parchment);
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse 120% 60% at 50% -10%, #1A2244 0%, transparent 55%),
+      radial-gradient(ellipse 90% 50% at 50% 115%, #141B38 0%, transparent 60%),
+      var(--void);
+    line-height:1.5;
+    font-size:18px;
+  }
+  #stars{position:fixed; inset:0; pointer-events:none; z-index:0;}
+  .star{position:absolute; border-radius:50%; background:var(--gold-bright); opacity:.5;}
+  @media (prefers-reduced-motion: no-preference){
+    .star{animation:tw 4s ease-in-out infinite alternate;}
+    @keyframes tw{from{opacity:.15}to{opacity:.7}}
+  }
+  .wrap{position:relative; z-index:1; max-width:680px; margin:0 auto; padding:22px 16px 80px;}
+
+  /* ---------- Header ---------- */
+  header{text-align:center; padding:10px 0 4px;}
+  .rule{display:flex; align-items:center; gap:10px; color:var(--gold-dim); font-size:13px; justify-content:center; letter-spacing:.35em; margin:6px 0;}
+  .rule::before,.rule::after{content:""; height:1px; flex:1; max-width:120px; background:linear-gradient(90deg,transparent,var(--gold-dim));}
+  .rule::after{background:linear-gradient(90deg,var(--gold-dim),transparent);}
+  h1{
+    font-family:'Cinzel', Georgia, serif;
+    font-weight:700; font-size:clamp(26px,6.4vw,40px);
+    letter-spacing:.12em; color:var(--gold-bright);
+    text-shadow:0 0 24px rgba(216,179,106,.35);
+  }
+  .subtitle{font-family:'Cinzel', serif; font-size:11px; letter-spacing:.32em; color:var(--gold); margin-top:6px; text-transform:uppercase;}
+  .motto{font-style:italic; color:var(--muted); font-size:16px; margin-top:8px;}
+
+  /* ---------- Tabs ---------- */
+  nav{display:flex; gap:8px; margin:20px 0 18px; justify-content:center;}
+  .tab{
+    font-family:'Cinzel', serif; font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--muted); background:transparent; border:1px solid #2A3150;
+    padding:10px 14px; border-radius:2px; cursor:pointer; flex:1; max-width:170px;
+  }
+  .tab.active{color:var(--gold-bright); border-color:var(--gold-dim); background:linear-gradient(180deg,#1A2140,#10162B); box-shadow:0 0 14px rgba(216,179,106,.15) inset;}
+
+  /* ---------- Instrument card ---------- */
+  .card{
+    position:relative; background:linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid #3A3352; border-radius:6px; padding:22px 18px 20px; margin-bottom:16px;
+    box-shadow:0 8px 30px rgba(0,0,0,.5), 0 0 0 1px rgba(216,179,106,.08) inset;
+  }
+  .card::before{
+    content:""; position:absolute; inset:5px; border:1px solid rgba(216,179,106,.28);
+    border-radius:4px; pointer-events:none;
+  }
+  .step-eyebrow{font-family:'Cinzel',serif; font-size:11px; letter-spacing:.3em; text-transform:uppercase; display:flex; align-items:center; gap:8px; margin-bottom:6px;}
+  .orb{width:10px; height:10px; border-radius:50%; box-shadow:0 0 8px currentColor;}
+  .step-title{font-family:'Cinzel',serif; font-size:22px; letter-spacing:.08em; color:var(--gold-bright); margin-bottom:2px;}
+  .step-q{font-style:italic; color:var(--muted); margin-bottom:14px; font-size:17px;}
+
+  /* ---------- Progress bezel ---------- */
+  .bezel{display:flex; justify-content:center; gap:9px; margin:2px 0 16px; flex-wrap:wrap;}
+  .dot{width:13px; height:13px; border-radius:50%; border:1px solid #3A3352; background:#0C1122; position:relative;}
+  .dot.done{border-color:transparent; box-shadow:0 0 8px currentColor; background:currentColor;}
+  .dot.now{border-color:var(--gold-bright); box-shadow:0 0 10px var(--gold-bright);}
+  .dot.now.done{background:currentColor;}
+
+  /* ---------- Inputs ---------- */
+  textarea, input[type=text]{
+    width:100%; background:#0B0F1F; border:1px solid #33395C; color:var(--parchment);
+    font-family:'Cormorant Garamond', Georgia, serif; font-size:18px; padding:11px 12px;
+    border-radius:3px; resize:vertical;
+  }
+  textarea:focus, input:focus{outline:none; border-color:var(--gold-dim); box-shadow:0 0 10px rgba(216,179,106,.18);}
+  .hint{font-size:14px; color:var(--muted); font-style:italic; margin-top:6px;}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 4px;}
+  .chip{
+    border:1px solid #3A4066; background:#0C1122; color:var(--parchment);
+    padding:9px 13px; border-radius:20px; cursor:pointer; font-size:16px;
+    font-family:'Cormorant Garamond', serif; transition:border-color .15s;
+  }
+  .chip:hover{border-color:var(--gold-dim);}
+  .chip.sel{border-color:var(--gold); background:linear-gradient(180deg,#2A2740,#1B1A30); color:var(--gold-bright); box-shadow:0 0 10px rgba(216,179,106,.22);}
+  .chip.suggested{border-color:rgba(216,179,106,.55); box-shadow:0 0 8px rgba(216,179,106,.16) inset;}
+  .chip .star{color:var(--gold-bright); margin-right:3px;}
+  .chip .g{margin-right:5px;}
+
+  /* ---- Lens frequency-tuner cards ---- */
+  .hzlist{display:flex; flex-direction:column; gap:9px; margin:10px 0 6px;}
+  .hzcard{
+    position:relative; display:flex; flex-direction:column; align-items:flex-start; text-align:left;
+    width:100%; padding:12px 14px; border:1px solid #3A4066; background:#0C1122;
+    border-radius:5px; cursor:pointer; font-family:'Cormorant Garamond', serif;
+  }
+  .hzcard.suggested{border-color:rgba(216,179,106,.55); box-shadow:0 0 8px rgba(216,179,106,.16) inset;}
+  .hzcard.sel{border-color:var(--gold); background:linear-gradient(180deg,#2A2740,#1B1A30); box-shadow:0 0 10px rgba(216,179,106,.22);}
+  .hzcard .star{position:absolute; top:10px; right:12px; color:var(--gold-bright); font-size:13px;}
+  .hzname{font-size:18px; color:var(--parchment); display:flex; align-items:center;}
+  .hzname .g{margin-right:7px;}
+  .hzcard.sel .hzname{color:var(--gold-bright);}
+  .hzbadge{font-family:'Cinzel',serif; font-size:12px; letter-spacing:.1em; color:var(--gold); margin-top:5px;}
+  .hzcard.sel .hzbadge{color:var(--gold-bright);}
+  .hzprimary{
+    font-family:'Cinzel',serif; font-size:10px; letter-spacing:.15em; color:#221A08;
+    background:var(--gold-bright); padding:2px 8px; border-radius:10px; margin-top:6px; font-weight:700;
+  }
+  .hzcard small{display:block; margin-top:6px; color:var(--muted); font-style:italic; font-size:14px;}
+  .chip small{display:block; font-size:12px; color:var(--muted); font-style:italic;}
+  .grouplabel{font-family:'Cinzel',serif; font-size:11px; letter-spacing:.25em; color:var(--gold); text-transform:uppercase; margin:14px 0 6px;}
+
+  /* segmented slider (evidence) */
+  .segwrap{margin:10px 0 4px;}
+  .segline{display:flex; gap:4px;}
+  .seg{flex:1; height:34px; border:1px solid #3A4066; background:#0C1122; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; color:var(--muted); font-family:'Cinzel',serif; letter-spacing:.06em;}
+  .seg:first-child{border-radius:3px 0 0 3px;} .seg:last-child{border-radius:0 3px 3px 0;}
+  .seg.on{background:linear-gradient(180deg,#4A3C1E,#2E2712); color:var(--gold-bright); border-color:var(--gold-dim);}
+
+  /* blind spot checklist */
+  .bs{display:flex; gap:10px; align-items:flex-start; padding:9px 10px; border:1px solid #2C3150; border-radius:4px; margin-bottom:7px; cursor:pointer; background:#0C1122;}
+  .bs.on{border-color:#B0483F; background:#1E1220; box-shadow:0 0 10px rgba(216,82,74,.18);}
+  .bs .box{width:18px; height:18px; border:1px solid var(--gold-dim); border-radius:2px; flex:none; margin-top:3px; display:flex; align-items:center; justify-content:center; color:#E8756B; font-size:14px;}
+  .bs b{font-family:'Cinzel',serif; font-size:14px; letter-spacing:.05em; color:var(--parchment); font-weight:600;}
+  .bs small{display:block; color:var(--muted); font-style:italic; font-size:14px;}
+
+  /* ---------- Gauge ---------- */
+  .gaugebox{display:flex; flex-direction:column; align-items:center; margin:8px 0 4px;}
+  .gauge{position:relative; width:230px; height:120px; overflow:hidden;}
+  .arc{
+    position:absolute; left:0; top:0; width:230px; height:230px; border-radius:50%;
+    background:conic-gradient(from 270deg, var(--c1) 0deg 55deg, var(--c2) 55deg 85deg, var(--c3) 85deg 115deg, #9FB55C 115deg 145deg, var(--c4) 145deg 180deg, transparent 180deg 360deg);
+    -webkit-mask:radial-gradient(circle at 50% 50%, transparent 70px, #000 71px);
+            mask:radial-gradient(circle at 50% 50%, transparent 70px, #000 71px);
+    opacity:.9;
+  }
+  .needle{
+    position:absolute; left:50%; bottom:0; width:3px; height:100px; background:var(--gold-bright);
+    transform-origin:50% 100%; transform:translateX(-50%) rotate(0deg);
+    box-shadow:0 0 8px var(--gold-bright); transition:transform .7s cubic-bezier(.3,1.4,.4,1);
+  }
+  .hub{position:absolute; left:50%; bottom:-9px; width:22px; height:22px; background:radial-gradient(circle,var(--gold-bright),var(--gold-dim)); border-radius:50%; transform:translateX(-50%); border:2px solid #2A2440;}
+  .gaugelabels{display:flex; justify-content:space-between; width:230px; font-family:'Cinzel',serif; font-size:11px; letter-spacing:.2em; color:var(--muted); margin-top:4px;}
+  .conf-read{font-family:'Cinzel',serif; font-size:20px; letter-spacing:.2em; margin-top:8px;}
+  .conf-LOW{color:#E8756B;} .conf-MEDIUM{color:var(--c3);} .conf-HIGH{color:#7FC68F;}
+
+  /* ---------- Buttons ---------- */
+  .btnrow{display:flex; gap:10px; margin-top:18px;}
+  button.nav{
+    font-family:'Cinzel',serif; letter-spacing:.15em; text-transform:uppercase; font-size:13px;
+    padding:12px 18px; border-radius:3px; cursor:pointer; flex:1;
+  }
+  .primary{background:linear-gradient(180deg,#E9C878,#B98F45); color:#221A08; border:1px solid var(--gold-bright); font-weight:700; text-shadow:0 1px 0 rgba(255,255,255,.25);}
+  .primary:disabled{opacity:.35; cursor:not-allowed;}
+  .ghost{background:transparent; color:var(--muted); border:1px solid #33395C;}
+  .ghost:hover{color:var(--gold); border-color:var(--gold-dim);}
+  .danger{background:transparent; color:#E8756B; border:1px solid #6E3833;}
+
+  /* ---------- Reading card ---------- */
+  .reading .field{margin-bottom:10px; padding-bottom:10px; border-bottom:1px dotted #2C3150;}
+  .reading .field:last-child{border-bottom:none;}
+  .fl{font-family:'Cinzel',serif; font-size:11px; letter-spacing:.25em; text-transform:uppercase; display:block; margin-bottom:2px;}
+  .fv{font-size:18px;} .fv em{color:var(--muted);}
+  .verdict{
+    text-align:center; font-style:italic; font-size:19px; margin:14px 0 4px; padding:12px;
+    border:1px solid rgba(216,179,106,.3); border-radius:4px; background:#0C1122; color:var(--gold-bright);
+  }
+  .flagline{color:#E8756B; font-size:16px;}
+  .center-seal{text-align:center; color:var(--muted); font-size:14px; font-style:italic; margin-top:10px; letter-spacing:.05em;}
+
+  /* ---------- Journal ---------- */
+  .jitem{margin-bottom:12px;}
+  .jhead{display:flex; justify-content:space-between; align-items:center; gap:10px; cursor:pointer;}
+  .jclaim{font-size:19px; color:var(--parchment);}
+  .jmeta{font-size:13px; color:var(--muted); font-style:italic; margin-top:2px;}
+  .badge{font-family:'Cinzel',serif; font-size:10px; letter-spacing:.15em; padding:4px 9px; border-radius:12px; border:1px solid currentColor; flex:none;}
+  .empty{text-align:center; color:var(--muted); font-style:italic; padding:30px 10px; font-size:18px;}
+
+  /* ---------- Codex ---------- */
+  details{border:1px solid #2C3150; border-radius:4px; margin-bottom:10px; background:#0C1122; overflow:hidden;}
+  summary{
+    cursor:pointer; padding:13px 14px; font-family:'Cinzel',serif; font-size:14px;
+    letter-spacing:.14em; color:var(--gold); text-transform:uppercase; list-style:none;
+  }
+  summary::-webkit-details-marker{display:none;}
+  summary::before{content:"✦ "; color:var(--gold-dim);}
+  details[open] summary{border-bottom:1px solid #2C3150; color:var(--gold-bright);}
+  .dbody{padding:12px 16px 14px; font-size:17px;}
+  .dbody p{margin-bottom:8px;}
+  .dbody b{color:var(--gold-bright); font-family:'Cinzel',serif; font-size:14px; letter-spacing:.05em;}
+  .dbody .li{margin-bottom:7px;}
+  .loopline{text-align:center; font-family:'Cinzel',serif; font-size:13px; letter-spacing:.12em; color:var(--parchment); line-height:2;}
+
+  footer{text-align:center; margin-top:26px; color:var(--muted); font-style:italic; font-size:15px; line-height:1.7;}
+  footer .seal{color:var(--gold-dim); letter-spacing:.25em; font-family:'Cinzel',serif; font-size:11px; margin-top:6px; font-style:normal;}
+  .toast{
+    position:fixed; bottom:18px; left:50%; transform:translateX(-50%);
+    background:#1B2240; border:1px solid var(--gold-dim); color:var(--gold-bright);
+    padding:10px 18px; border-radius:4px; font-family:'Cinzel',serif; font-size:12px; letter-spacing:.15em;
+    z-index:50; opacity:0; pointer-events:none; transition:opacity .3s;
+  }
+  .toast.show{opacity:1;}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div class="wrap">
+  <header>
+    <div class="rule">✦ ✦ ✦</div>
+    <h1>THE WISDOM COMPASS</h1>
+    <div class="subtitle">An Epistemic Navigation Instrument</div>
+    <div class="motto">Strong convictions. Light grip. Continual calibration.</div>
+  </header>
+
+  <nav>
+    <button class="tab active" id="tab-reading" onclick="go('reading')">⊕ Reading</button>
+    <button class="tab" id="tab-journal" onclick="go('journal')">📜 Journal</button>
+    <button class="tab" id="tab-codex" onclick="go('codex')">📖 Codex</button>
+  </nav>
+
+  <div id="view"></div>
+
+  <footer>
+    Every lens reveals something. Every lens conceals something.<br>
+    Wisdom begins by discerning which is which.
+    <div class="seal">ZERO-POINT · TRUTH · GOODNESS · BEAUTY · LOVE · ☩ · SOLI DEO GLORIA</div>
+  </footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ Star field (calm, reduced-motion safe) ============ */
+(function(){
+  const holder = document.getElementById('stars');
+  for(let i=0;i<80;i++){
+    const s=document.createElement('div'); s.className='star';
+    const size=(Math.random()*1.8+0.6).toFixed(1);
+    s.style.width=size+'px'; s.style.height=size+'px';
+    s.style.left=(Math.random()*100)+'%'; s.style.top=(Math.random()*100)+'%';
+    s.style.animationDelay=(Math.random()*4)+'s';
+    holder.appendChild(s);
+  }
+})();
+
+/* ============ Instrument data ============ */
+const LAYERS=[
+  {n:'Mystery',g:'✦'},{n:'Potential',g:'◌'},{n:'Pattern',g:'❋'},{n:'Matter',g:'⬡'},
+  {n:'Life',g:'🌿'},{n:'Mind',g:'🧠'},{n:'Meaning',g:'📖'},{n:'Wisdom',g:'🕯️'},{n:'Love',g:'♥'}
+];
+const SCALES=['Quantum','Atomic','Molecular','Cellular','Organism','Community','Civilization','Planet','Cosmos'];
+const LENSES=[
+  {n:'Physics',g:'⚛'},{n:'Biology',g:'🧬'},{n:'Psychology',g:'🧠'},{n:'Systems',g:'🕸'},
+  {n:'Symbolism',g:'🜍'},{n:'Integral Theory',g:'◐'},{n:'Communication',g:'💬'},{n:'Spiritual Traditions',g:'🕊'},
+  {n:'Art & Aesthetics',g:'🎨'},{n:'Economics',g:'🪙'},{n:'Law & Ethics',g:'⚖'},{n:'Technology',g:'⚙'}
+];
+/* Which question each lens is built to answer, and where it goes blind if used alone */
+const LENS_GUIDE=[
+  {best:'How does it move, measure, or interact?', blind:'Silent on meaning or value.'},
+  {best:'How does it grow, adapt, heal, or evolve?', blind:'Silent on subjective experience.'},
+  {best:'Why do I feel or act this way?', blind:'Individual-level — can miss systemic or spiritual causes.'},
+  {best:'How do the parts interact as a whole?', blind:'Can abstract away lived, first-person experience.'},
+  {best:'What does this represent or point to?', blind:'Can over-read patterns that aren\u2019t literally there.'},
+  {best:'Am I missing a whole quadrant of the picture?', blind:'Can stay meta without grounding in one discipline.'},
+  {best:'Why is this claim spreading or persuasive?', blind:'Explains spread, not truth.'},
+  {best:'What does this mean for the soul, or right relationship with God?', blind:'Can bypass empirical checking if held alone.'},
+  {best:'Does this ring true, harmonious, or beautiful?', blind:'Beauty and truth aren\u2019t always the same thing.'},
+  {best:'Who benefits? What does the incentive structure reward?', blind:'Can reduce all value to price.'},
+  {best:'Is this right, permissible, or fair?', blind:'Legal ≠ moral — the two get conflated.'},
+  {best:'How is this built, or how could it be?', blind:'Silent on whether it should be built.'}
+];
+/* Symbolic tuning key — a creative mnemonic for each lens, NOT a measured physical frequency */
+const LENS_HZ=[111,285,396,417,639,852,741,963,528,174,432,40];
+/* Layer (Axis Mundi level) -> lens indices that are natively suited to that level */
+const LAYER_LENS_SUGGEST=[
+  [7,5,4],      /* Mystery: Spiritual Traditions, Integral Theory, Symbolism */
+  [3,7,4],      /* Potential: Systems, Spiritual Traditions, Symbolism */
+  [0,3,4,11],   /* Pattern: Physics, Systems, Symbolism, Technology */
+  [0,11],       /* Matter: Physics, Technology */
+  [1,3],        /* Life: Biology, Systems */
+  [2,6],        /* Mind: Psychology, Communication */
+  [4,8,7],      /* Meaning: Symbolism, Art & Aesthetics, Spiritual Traditions */
+  [5,10,7],     /* Wisdom: Integral Theory, Law & Ethics, Spiritual Traditions */
+  [7,8,5]       /* Love: Spiritual Traditions, Art & Aesthetics, Integral Theory */
+];
+const EV_LABELS=['Anecdotal','Weak','Moderate','Strong'];
+const PATTERN_OPTS=[
+  {n:'Yes — recurs',g:'❋',d:'Appears across scales or contexts'},
+  {n:'Local only',g:'·',d:'Seems bound to this one context'},
+  {n:'Unsure',g:'?',d:'Not yet enough vantage points'}
+];
+const SYNCS=[
+  {n:'Coexist',g:'∥',d:'They sit side by side without conflict'},
+  {n:'Illuminate',g:'✧',d:'One sheds light on the other'},
+  {n:'Complement',g:'⊕',d:'Each supplies what the other lacks'},
+  {n:'Strengthen',g:'⇈',d:'They reinforce the same conclusion'},
+  {n:'Challenge',g:'⚡',d:'They genuinely conflict — investigate'},
+  {n:'Transcend',g:'∞',d:'A higher frame resolves both'}
+];
+const BLINDSPOTS=[
+  {n:'Category Error',d:'Treating one kind of thing as another kind'},
+  {n:'Scale Mismatch',d:'A truth at one scale, applied at another'},
+  {n:'Analogy ≠ Identity',d:'A likeness quietly treated as sameness'},
+  {n:'Correlation ≠ Causation',d:'Together in time is not therefore'},
+  {n:'Mechanism ≠ Meaning',d:'How it works is not what it means'},
+  {n:'Experience ≠ Ontology',d:'Feeling real is not proof of what is real'},
+  {n:'Evidence ≠ Proof',d:'Support is not certainty'},
+  {n:'Confirmation Bias',d:'Seeing only what already agrees'},
+  {n:'Projection / Assumption',d:'Importing your own pattern into the data'},
+  {n:'Reductionism',d:'Explaining away instead of explaining'}
+];
+const STEPCOLORS=['var(--gold)','var(--c1)','var(--c2)','var(--c3)','var(--c4)','var(--c5)','var(--c6)','var(--c7)','#B0483F','var(--gold)'];
+
+/* ============ State ============ */
+function blank(){return {claim:'',layer:null,scale:null,lenses:[],evidence:null,evidenceNote:'',
+  pattern:null,patternNote:'',meaningNote:'',sync:null,syncNote:'',mysteryNote:'',
+  blindspots:[],confidence:null,confUser:false,saved:false,score:0,resonance:'',ts:null,id:null};}
+let R=blank();
+let step=0;
+let journal=[];
+let tab='reading';
+let showResult=false;
+let memStore={}; /* fallback if storage unavailable */
+
+/* ============ Storage ============ */
+const KEY='wisdom-compass-readings-v1';
+function hasLocal(){
+  try{ localStorage.setItem('wc-test','1'); localStorage.removeItem('wc-test'); return true; }
+  catch(e){ return false; }
+}
+async function loadJournal(){
+  try{
+    if(window.storage){
+      const res=await window.storage.get(KEY);
+      journal=res&&res.value?JSON.parse(res.value):[];
+    }else if(hasLocal()){
+      journal=JSON.parse(localStorage.getItem(KEY)||'[]');
+    }else{ journal=memStore[KEY]||[]; }
+  }catch(e){ journal=[]; }
+}
+async function persist(){
+  try{
+    if(window.storage){ await window.storage.set(KEY, JSON.stringify(journal)); }
+    else if(hasLocal()){ localStorage.setItem(KEY, JSON.stringify(journal)); }
+    else{ memStore[KEY]=journal; }
+  }catch(e){ toast('COULD NOT SAVE'); }
+}
+
+/* ============ Scoring ============ */
+function computeScore(){
+  let s=12 + (R.evidence??0)*24;                 /* 12 · 36 · 60 · 84 */
+  if(R.pattern===0) s+=8;                        /* recurs across scales */
+  if(R.sync!==null && [2,3,5].includes(R.sync)) s+=4; /* complement/strengthen/transcend */
+  s-=R.blindspots.length*8;
+  return Math.max(4,Math.min(96,s));
+}
+function band(s){return s<40?'LOW':s<=70?'MEDIUM':'HIGH';}
+function computeResonance(){
+  const bs=R.blindspots.length;
+  const goodSync=R.sync!==null && [1,2,3,5].includes(R.sync);
+  if(bs>=4 || (R.evidence<=0 && R.confidence==='HIGH')) return 'FRAGMENTED';
+  if(bs<=1 && (R.evidence??0)>=2 && goodSync) return 'COHERENT';
+  return 'PARTIAL';
+}
+const RESONANCE_TEXT={
+  COHERENT:'The layers resonate. Hold this with a light, confident grip.',
+  PARTIAL:'Partial resonance — real signal, real gaps. Keep calibrating.',
+  FRAGMENTED:'Fragmentation warning: the lenses are quarreling. Investigate before you build upon this.'
+};
+
+/* ============ Rendering ============ */
+const V=document.getElementById('view');
+function go(t){tab=t;
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  render();
+}
+function render(){
+  if(tab==='reading') renderReading();
+  else if(tab==='journal') renderJournal();
+  else renderCodex();
+  window.scrollTo({top:0});
+}
+function esc(x){return (x||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function bezel(){
+  let h='<div class="bezel">';
+  for(let i=0;i<10;i++){
+    const done=i<step||showResult, now=i===step&&!showResult;
+    const tap=done&&!now;
+    h+='<div class="dot'+(done?' done':'')+(now?' now':'')+'" style="color:'+STEPCOLORS[i]+(tap?';cursor:pointer':'')+'" '+(tap?'onclick="jump('+i+')"':'')+'></div>';
+  }
+  return h+'</div>';
+}
+
+function chip(list,idx,sel,multi,fn){
+  return list.map((o,i)=>{
+    const on=multi?sel.includes(i):sel===i;
+    return '<button class="chip'+(on?' sel':'')+'" onclick="'+fn+'('+i+')">'+
+      (o.g?'<span class="g">'+o.g+'</span>':'')+o.n+(o.d?'<small>'+o.d+'</small>':'')+'</button>';
+  }).join('');
+}
+function lensChips(sel){
+  const suggested = R.layer!==null ? LAYER_LENS_SUGGEST[R.layer] : [];
+  return LENSES.map((o,i)=>{
+    const on=sel.includes(i), sug=suggested.includes(i), primary=sel[0]===i;
+    return '<button class="hzcard'+(on?' sel':'')+(sug&&!on?' suggested':'')+'" onclick="togLens('+i+')">'+
+      (sug?'<span class="star">✦</span>':'')+
+      '<span class="hzname"><span class="g">'+o.g+'</span>'+o.n+'</span>'+
+      '<span class="hzbadge">))) '+LENS_HZ[i]+' Hz</span>'+
+      (primary?'<span class="hzprimary">PRIMARY</span>':'')+
+      '<small>'+LENS_GUIDE[i].best+'</small></button>';
+  }).join('');
+}
+
+/* ---- Step definitions ---- */
+const STEPS=[
+ {t:'THE CLAIM', q:'What idea, theory, or claim are you navigating?', c:STEPCOLORS[0],
+  body:()=>'<textarea id="in-claim" rows="3" placeholder="e.g. “Gut health drives mood” · “This policy will help families” · “EZ water stores charge in cells”">'+esc(R.claim)+'</textarea>'+
+        '<p class="hint">One claim per reading. The compass measures one bearing at a time.</p>',
+  bind:()=>{const el=document.getElementById('in-claim'); el.addEventListener('input',()=>R.claim=el.value); el.focus();},
+  valid:()=>R.claim.trim().length>2},
+
+ {t:'1 · LAYER', q:'What level of reality is this claim about — and at what scale?', c:STEPCOLORS[1],
+  body:()=>'<div class="grouplabel">Axis Mundi — level of being</div><div class="chips">'+chip(LAYERS,0,R.layer,false,'setLayer')+'</div>'+
+        '<div class="grouplabel">Scale ring — where is this?</div><div class="chips">'+chip(SCALES.map(n=>({n})),0,R.scale,false,'setScale')+'</div>',
+  valid:()=>R.layer!==null&&R.scale!==null},
+
+ {t:'2 · LENS', q:'Which perspective or discipline is being used? (first tap = primary lens)', c:STEPCOLORS[2],
+  body:()=>{
+    const sugList = R.layer!==null ? LAYER_LENS_SUGGEST[R.layer].map(i=>LENSES[i].g+' '+LENSES[i].n).join(' · ') : '';
+    return (R.layer!==null?'<p class="hint">✦ Natively suited to <b style="color:var(--gold)">'+LAYERS[R.layer].n+'</b>: '+sugList+' — starred below. Override freely; this is a suggestion, not a rule.</p>':'')+
+    '<div class="hzlist">'+lensChips(R.lenses)+'</div>'+
+    '<p class="hint">Change the lens, not the truth. Tap to tune in; first tap sets your primary. Add one "outside" lens as a challenger.</p>'+
+    '<p class="hint" style="opacity:.75">Hz shown is a symbolic tuning key for this instrument — a mnemonic, not a measured frequency.</p>'+
+    '<details class="lensguide"><summary>❓ Which lens, when? — quick guide</summary><div class="dbody">'+
+      LENSES.map((o,i)=>'<div class="li"><b>'+o.g+' '+o.n+' · '+LENS_HZ[i]+' Hz</b> — '+LENS_GUIDE[i].best+'<br><em style="color:var(--muted)">Blind spot: '+LENS_GUIDE[i].blind+'</em></div>').join('')+
+    '</div></details>';
+  },
+  valid:()=>R.lenses.length>0},
+
+ {t:'3 · EVIDENCE', q:'What supports this claim, and how strongly?', c:STEPCOLORS[3],
+  body:()=>'<div class="segwrap"><div class="segline">'+EV_LABELS.map((l,i)=>'<div class="seg'+(R.evidence===i?' on':'')+'" onclick="setEv('+i+')">'+l+'</div>').join('')+'</div></div>'+
+        '<textarea id="in-ev" rows="3" placeholder="Name the actual support: studies, direct observation, testimony, tradition, replication…">'+esc(R.evidenceNote)+'</textarea>'+
+        '<p class="hint">Evidence ≠ proof. Name it honestly; the meter will thank you.</p>',
+  bind:()=>{const el=document.getElementById('in-ev'); el.addEventListener('input',()=>R.evidenceNote=el.value);},
+  valid:()=>R.evidence!==null},
+
+ {t:'4 · PATTERN', q:'Does it recur across scales or contexts?', c:STEPCOLORS[4],
+  body:()=>'<div class="chips">'+chip(PATTERN_OPTS,0,R.pattern,false,'setPat')+'</div>'+
+        '<textarea id="in-pat" rows="2" placeholder="Where else does this shape appear? Crystal → leaf → river delta → galaxy…">'+esc(R.patternNote)+'</textarea>',
+  bind:()=>{const el=document.getElementById('in-pat'); el.addEventListener('input',()=>R.patternNote=el.value);},
+  valid:()=>R.pattern!==null},
+
+ {t:'5 · MEANING', q:'What significance does this carry — for identity, purpose, story, values?', c:STEPCOLORS[5],
+  body:()=>'<textarea id="in-mean" rows="3" placeholder="If true, what does it ask of you? What story does it belong to?">'+esc(R.meaningNote)+'</textarea>'+
+        '<p class="hint">Mechanism explains how. Meaning explains why it matters.</p>',
+  bind:()=>{const el=document.getElementById('in-mean'); el.addEventListener('input',()=>R.meaningNote=el.value);},
+  valid:()=>true},
+
+ {t:'6 · SYNCHRONIZATION', q:'How does it relate to other valid perspectives?', c:STEPCOLORS[6],
+  body:()=>'<div class="chips">'+chip(SYNCS,0,R.sync,false,'setSync')+'</div>'+
+        '<textarea id="in-sync" rows="2" placeholder="Which other lens did you test it against, and what happened?">'+esc(R.syncNote)+'</textarea>',
+  bind:()=>{const el=document.getElementById('in-sync'); el.addEventListener('input',()=>R.syncNote=el.value);},
+  valid:()=>R.sync!==null},
+
+ {t:'7 · MYSTERY', q:'What remains genuinely unknown?', c:STEPCOLORS[7],
+  body:()=>'<textarea id="in-mys" rows="3" placeholder="Preserve uncertainty where evidence is incomplete. Name the open questions.">'+esc(R.mysteryNote)+'</textarea>'+
+        '<p class="hint">The uncharted keeps us humble. An honest unknown is a feature, not a flaw.</p>',
+  bind:()=>{const el=document.getElementById('in-mys'); el.addEventListener('input',()=>R.mysteryNote=el.value);},
+  valid:()=>true},
+
+ {t:'BLIND SPOT SCAN', q:'What might we be missing? Flag every hazard that could be in play.', c:STEPCOLORS[8],
+  body:()=>BLINDSPOTS.map((b,i)=>'<div class="bs'+(R.blindspots.includes(i)?' on':'')+'" onclick="togBS('+i+')"><div class="box">'+(R.blindspots.includes(i)?'✕':'')+'</div><div><b>'+b.n+'</b><small>'+b.d+'</small></div></div>').join('')+
+        '<p class="hint">Zero flags is rare — and itself suspicious. 🙂</p>',
+  valid:()=>true},
+
+ {t:'CONFIDENCE METER', q:'How well supported is this position?', c:STEPCOLORS[9],
+  body:()=>{
+    const s=computeScore(), deg=-90+s*1.8, sug=band(s);
+    if(!R.confUser)R.confidence=sug;
+    return '<div class="gaugebox"><div class="gauge"><div class="arc"></div><div class="needle" style="transform:translateX(-50%) rotate('+deg+'deg)"></div><div class="hub"></div></div>'+
+    '<div class="gaugelabels"><span>LOW</span><span>MEDIUM</span><span>HIGH</span></div>'+
+    '<div class="conf-read conf-'+sug+'">'+sug+' · '+s+'/100</div>'+
+    '<p class="hint">Instrument suggestion from your evidence, pattern &amp; flags. You hold the helm — override if you must:</p>'+
+    '<div class="chips" style="justify-content:center">'+['LOW','MEDIUM','HIGH'].map(c=>'<button class="chip'+(R.confidence===c?' sel':'')+'" onclick="setConf(\''+c+'\')">'+c+'</button>').join('')+'</div></div>';
+  },
+  valid:()=>true}
+];
+
+function renderReading(){
+  if(showResult){renderResult();return;}
+  const st=STEPS[step];
+  V.innerHTML=bezel()+
+   '<div class="card"><div class="step-eyebrow" style="color:'+st.c+'"><span class="orb" style="background:'+st.c+'"></span>'+st.t+'</div>'+
+   '<div class="step-title">'+(step===0?'Set Your Bearing':step===8?'Shadow Compass':step===9?'Read the Needle':st.t.split('· ')[1]||st.t)+'</div>'+
+   '<div class="step-q">'+st.q+'</div>'+st.body()+
+   '<div class="btnrow">'+
+     (step>0?'<button class="nav ghost" onclick="prev()">◂ Back</button>':'')+
+     '<button class="nav primary" id="nextbtn" onclick="next()" '+(st.valid()?'':'disabled')+'>'+(step===9?'⊕ Compass Reading':'Next ▸')+'</button>'+
+   '</div></div>';
+  if(st.bind)st.bind();
+  if(step===0)watchClaim();
+}
+function watchClaim(){
+  const el=document.getElementById('in-claim');
+  if(el)el.addEventListener('input',()=>{document.getElementById('nextbtn').disabled=!(el.value.trim().length>2);});
+}
+function refresh(){renderReading();}
+function prev(){step=Math.max(0,step-1);renderReading();}
+function jump(i){showResult=false;step=i;renderReading();}
+function next(){
+  if(!STEPS[step].valid())return;
+  if(step===9){R.score=computeScore();R.resonance=computeResonance();showResult=true;renderResult();return;}
+  step++;renderReading();
+}
+
+/* setters */
+function setLayer(i){R.layer=i;refresh();}
+function setScale(i){R.scale=i;refresh();}
+function togLens(i){const p=R.lenses.indexOf(i); p>=0?R.lenses.splice(p,1):R.lenses.push(i);refresh();}
+function setEv(i){R.evidence=i;refresh();}
+function setPat(i){R.pattern=i;refresh();}
+function setSync(i){R.sync=i;refresh();}
+function togBS(i){const p=R.blindspots.indexOf(i); p>=0?R.blindspots.splice(p,1):R.blindspots.push(i);refresh();}
+function setConf(c){R.confidence=c;R.confUser=true;refresh();}
+
+/* ---- Result card ---- */
+function readingCard(r,inJournal){
+  const lensNames=r.lenses.map((i,k)=>LENSES[i].g+' '+LENSES[i].n+' ('+LENS_HZ[i]+'Hz)'+(k===0?' — primary':'')).join(' · ');
+  const flags=r.blindspots.map(i=>BLINDSPOTS[i].n).join(' · ');
+  const deg=-90+r.score*1.8;
+  return '<div class="card reading">'+
+   '<div class="step-eyebrow" style="color:var(--gold)"><span class="orb" style="background:var(--gold)"></span>COMPASS READING'+(r.ts?' · '+new Date(r.ts).toLocaleDateString():'')+'</div>'+
+   '<div class="step-title" style="margin-bottom:12px">“'+esc(r.claim)+'”</div>'+
+   '<div class="field"><span class="fl" style="color:var(--c1)">🔴 Layer · Scale</span><span class="fv">'+LAYERS[r.layer].g+' '+LAYERS[r.layer].n+' · '+SCALES[r.scale]+'</span></div>'+
+   '<div class="field"><span class="fl" style="color:var(--c2)">🟠 Lens</span><span class="fv">'+lensNames+'</span></div>'+
+   '<div class="field"><span class="fl" style="color:var(--c3)">🟡 Evidence</span><span class="fv">'+EV_LABELS[r.evidence]+(r.evidenceNote?' — <em>'+esc(r.evidenceNote)+'</em>':'')+'</span></div>'+
+   '<div class="field"><span class="fl" style="color:var(--c4)">🟢 Pattern</span><span class="fv">'+PATTERN_OPTS[r.pattern].n+(r.patternNote?' — <em>'+esc(r.patternNote)+'</em>':'')+'</span></div>'+
+   '<div class="field"><span class="fl" style="color:var(--c5)">🔵 Meaning</span><span class="fv">'+(r.meaningNote?'<em>'+esc(r.meaningNote)+'</em>':'<em>—</em>')+'</span></div>'+
+   '<div class="field"><span class="fl" style="color:var(--c6)">🟣 Synchronization</span><span class="fv">'+SYNCS[r.sync].g+' '+SYNCS[r.sync].n+(r.syncNote?' — <em>'+esc(r.syncNote)+'</em>':'')+'</span></div>'+
+   '<div class="field"><span class="fl" style="color:var(--c7)">🪷 Mystery</span><span class="fv">'+(r.mysteryNote?'<em>'+esc(r.mysteryNote)+'</em>':'<em>—</em>')+'</span></div>'+
+   '<div class="field"><span class="fl" style="color:#E8756B">◐ Shadow flags ('+r.blindspots.length+')</span><span class="fv flagline">'+(flags||'None flagged — stay watchful')+'</span></div>'+
+   '<div class="gaugebox"><div class="gauge"><div class="arc"></div><div class="needle" style="transform:translateX(-50%) rotate('+deg+'deg)"></div><div class="hub"></div></div>'+
+   '<div class="conf-read conf-'+r.confidence+'">'+r.confidence+' CONFIDENCE · '+r.score+'/100</div></div>'+
+   '<div class="verdict">'+r.resonance+': '+RESONANCE_TEXT[r.resonance]+'</div>'+
+   '<div class="center-seal">Discernment holds the center: What is True? What is Good? What is Beautiful?</div>'+
+   (inJournal
+     ?'<div class="btnrow"><button class="nav ghost" onclick="copyReading(\''+r.id+'\')">📋 Copy</button><button class="nav danger" onclick="delReading(\''+r.id+'\')">Remove</button></div>'
+     :'<div class="btnrow"><button class="nav ghost" onclick="copyCurrent()">📋 Copy</button><button class="nav primary" onclick="saveCurrent()">'+(r.saved?'✓ In Journal':'🕯️ Save to Journal')+'</button></div>'+
+      '<div class="btnrow"><button class="nav ghost" onclick="editReading()">◂ Recalibrate</button><button class="nav ghost" onclick="newReading()">✦ New Reading</button></div>')+
+   '</div>';
+}
+function renderResult(){V.innerHTML=bezel()+readingCard(R,false);}
+function editReading(){showResult=false;step=9;renderReading();}
+function newReading(){R=blank();step=0;showResult=false;renderReading();}
+async function saveCurrent(){
+  if(R.saved){toast('ALREADY IN JOURNAL');return;}
+  R.ts=Date.now(); R.id='r'+R.ts+Math.floor(Math.random()*999);
+  journal.unshift(JSON.parse(JSON.stringify(R)));
+  R.saved=true; await persist();
+  toast((window.storage||hasLocal())?'READING SAVED 🕯️':'SAVED — THIS SESSION ONLY');
+  renderResult();
+}
+
+/* ---- Copy as text ---- */
+function readingText(r){
+  return '⊕ COMPASS READING — “'+r.claim+'”\n'+
+  '🔴 Layer/Scale: '+LAYERS[r.layer].n+' · '+SCALES[r.scale]+'\n'+
+  '🟠 Lens: '+r.lenses.map(i=>LENSES[i].n+' ('+LENS_HZ[i]+'Hz)').join(', ')+'\n'+
+  '🟡 Evidence: '+EV_LABELS[r.evidence]+(r.evidenceNote?' — '+r.evidenceNote:'')+'\n'+
+  '🟢 Pattern: '+PATTERN_OPTS[r.pattern].n+(r.patternNote?' — '+r.patternNote:'')+'\n'+
+  '🔵 Meaning: '+(r.meaningNote||'—')+'\n'+
+  '🟣 Sync: '+SYNCS[r.sync].n+(r.syncNote?' — '+r.syncNote:'')+'\n'+
+  '🪷 Mystery: '+(r.mysteryNote||'—')+'\n'+
+  '◐ Shadow flags: '+(r.blindspots.map(i=>BLINDSPOTS[i].n).join(', ')||'none')+'\n'+
+  '⊕ Confidence: '+r.confidence+' ('+r.score+'/100) · Resonance: '+r.resonance+'\n'+
+  '“Strong convictions. Light grip. Continual calibration.”';
+}
+function doCopy(txt){
+  const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta);
+  ta.select(); try{document.execCommand('copy'); toast('COPIED 📋');}catch(e){toast('SELECT & COPY MANUALLY');}
+  document.body.removeChild(ta);
+}
+function copyCurrent(){doCopy(readingText(R));}
+function copyReading(id){const r=journal.find(x=>x.id===id); if(r)doCopy(readingText(r));}
+
+/* ---- Journal ---- */
+let openId=null;
+function renderJournal(){
+  if(!journal.length){
+    V.innerHTML='<div class="card"><div class="empty">No readings yet.<br>The compass awaits its first bearing. ✦</div></div>';return;
+  }
+  V.innerHTML=journal.map(r=>{
+    const open=openId===r.id;
+    const head='<div class="card jitem"><div class="jhead" onclick="togJ(\''+r.id+'\')">'+
+      '<div><div class="jclaim">“'+esc(r.claim)+'”</div><div class="jmeta">'+new Date(r.ts).toLocaleString()+' · '+LAYERS[r.layer].n+' · '+LENSES[r.lenses[0]].n+'</div></div>'+
+      '<span class="badge conf-'+r.confidence+'">'+r.confidence+'</span></div>'+
+      (open?readingCard(r,true).replace('<div class="card reading">','<div class="reading" style="margin-top:14px">'):'')+'</div>';
+    return head;
+  }).join('');
+}
+function togJ(id){openId=openId===id?null:id;renderJournal();}
+async function delReading(id){
+  journal=journal.filter(r=>r.id!==id); openId=null;
+  await persist(); toast('READING REMOVED'); renderJournal();
+}
+
+/* ---- Codex ---- */
+function renderCodex(){
+  V.innerHTML=
+  '<details open><summary>The Seven Navigation Questions</summary><div class="dbody">'+
+   '<div class="li">🔴 <b>1 Layer</b> — What level of reality is this? (Mystery → Love)</div>'+
+   '<div class="li">🟠 <b>2 Lens</b> — Which perspective or discipline is being used?</div>'+
+   '<div class="li">🟡 <b>3 Evidence</b> — What supports this claim?</div>'+
+   '<div class="li">🟢 <b>4 Pattern</b> — Does it recur across scales or contexts?</div>'+
+   '<div class="li">🔵 <b>5 Meaning</b> — What significance does it carry?</div>'+
+   '<div class="li">🟣 <b>6 Synchronization</b> — How does it relate to other valid perspectives?</div>'+
+   '<div class="li">🪷 <b>7 Mystery</b> — What remains genuinely unknown?</div></div></details>'+
+
+  '<details><summary>Which Lens, When? — Field Guide</summary><div class="dbody">'+
+   '<p style="opacity:.75"><em>Hz is a symbolic tuning key for this instrument — a mnemonic, not a measured frequency.</em></p>'+
+   LENSES.map((o,i)=>'<div class="li"><b>'+o.g+' '+o.n+' · '+LENS_HZ[i]+' Hz</b> — best for: '+LENS_GUIDE[i].best+'<br><em style="color:var(--muted)">Blind spot: '+LENS_GUIDE[i].blind+'</em></div>').join('')+
+   '</div></details>'+
+
+  '<details><summary>How to Combine Lenses</summary><div class="dbody">'+
+   '<p><b>1. Start native.</b> Every Layer (Mystery → Love) has lenses built for it — Physics fits Matter, Psychology fits Mind, Spiritual Traditions fits Wisdom &amp; Love. The compass stars these for you once you set your Layer.</p>'+
+   '<p><b>2. Add one challenger.</b> Pick a second lens from a <em>different</em> quadrant of the Wilber Map (Interior/Exterior × Individual/Collective) than your primary. This is what surfaces blind spots before you commit.</p>'+
+   '<p><b>3. Watch for these tells:</b></p>'+
+   '<div class="li">• If a claim only survives in <em>one</em> lens and collapses under any other — hold it loosely.</div>'+
+   '<div class="li">• If two lenses <em>Strengthen</em> or <em>Transcend</em> each other (step 6) — confidence can rise.</div>'+
+   '<div class="li">• If two lenses <em>Challenge</em> each other — don\u2019t force early agreement. Sit in the tension; that\u2019s real signal, not a bug.</div>'+
+   '<p><b>4. Never collapse lenses into identity.</b> "This is <em>just</em> chemistry" or "this is <em>just</em> symbolism" is the Reductionism blind spot — a lens describing one layer well doesn\u2019t mean the other layers stop being real.</p>'+
+   '<p><em>Rule of thumb: 1 native lens for grounding + 1 outside lens for correction + the Synchronization step to see how they actually relate.</em></p></div></details>'+
+
+  '<details><summary>Calibrate Before Accepting a Claim</summary><div class="dbody">'+
+   ['Distinguish observation from interpretation','Distinguish mechanism from meaning','Distinguish analogy from identity',
+    'Integrate without conflating','Preserve uncertainty where evidence is incomplete','Update with new evidence','Serve life and the good']
+   .map(x=>'<div class="li">✓ '+x+'</div>').join('')+'</div></details>'+
+
+  '<details><summary>Blind Spot Bestiary</summary><div class="dbody">'+
+   BLINDSPOTS.map(b=>'<div class="li"><b>'+b.n+'</b> — '+b.d+'</div>').join('')+'</div></details>'+
+
+  '<details><summary>Synchronization Modes</summary><div class="dbody">'+
+   SYNCS.map(s=>'<div class="li"><b>'+s.g+' '+s.n+'</b> — '+s.d+'</div>').join('')+
+   '<p style="margin-top:8px"><em>Coherence is not the same as truth — but fragmentation is a warning.</em></p></div></details>'+
+
+  '<details><summary>Orientation: Attitudes That Keep Inquiry Healthy</summary><div class="dbody">'+
+   '<p>Humility · Wonder · Curiosity · Mystery · Possibility · Compassion · Intellectual Honesty · Discernment.</p>'+
+   '<p><em>Every model has a domain of usefulness and a boundary.</em></p></div></details>'+
+
+  '<details><summary>The Feedback Loop (Wisdom Is Cyclical)</summary><div class="dbody">'+
+   '<div class="loopline">👁 OBSERVE — what is happening?<br>▾<br>🧩 MODEL — what is the explanation?<br>▾<br>✋ ACT — what will we do?<br>▾<br>🔍 REFLECT — what were the results?<br>▾<br>✎ REVISE — what will we improve? ↺</div></div></details>'+
+
+  '<details><summary>The Zero-Point</summary><div class="dbody">'+
+   '<p>The needle turns; the center does not. Discernment rests on the still point where Truth, Goodness, Beauty and Love are one — the Logos at Zero-Point. Every lens orbits; none replaces the center.</p>'+
+   '<p><em>“You stand tallest at dawn and humblest by dusk.” — Sir Leemerton 🕯️</em></p></div></details>'+
+
+  '<div class="card" style="text-align:center"><div class="motto">The Wisdom Compass is not a theory of everything.<br><span style="color:var(--gold-bright); font-family:Cinzel,serif; letter-spacing:.1em; font-size:15px;">IT IS A THEORY OF NAVIGATING THEORIES.</span></div></div>';
+}
+
+/* ---- Toast ---- */
+let toastTimer=null;
+function toast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+/* ---- Boot ---- */
+(async function(){ await loadJournal(); render(); })();
+</script>
+</body>
+</html>
